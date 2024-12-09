@@ -38,23 +38,21 @@
     </div>
 
     <!-- Bottom Nav -->
-    <div class="fixed bottom-0 left-0 right-0 bg-yeng-pink-500 shadow-lg p-2 m-6 flex justify-between items-center border-t border-gray-200 z-50 rounded-full">
-        <button class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center">
-            <a href="{{ route('dashboard') }}">
+    <div class="fixed bottom-0 left-0 right-0 bg-red-500 shadow-lg p-2 m-6 flex justify-between items-center border-t border-gray-200 z-50 rounded-full">
+        <button onclick="" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center">
+            <a href="{{ route('instructor.dashboard') }}">
                 <img src="/images/House.svg" alt="Home" class="h-8 w-8">
             </a>
         </button>
-        <button class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center">
-            <a href="{{ route('booking') }}">
+        <button onclick="" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center">
+            <a href="">
                 <img src="/images/Plus.svg" alt="Home" class="h-8 w-8">
             </a>
         </button>
-        <button class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center">
-            <a href="{{ route('sessions-log') }}">
-                <img src="/images/calendar.svg" alt="Sessions" class="h-8 w-8">
-            </a>
+        <button onclick="" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center">
+            <img src="/images/calendar.svg" alt="Sessions" class="h-8 w-8">
         </button>
-        <button class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center">
+        <button onclick="" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center">
             <a href="">
                 <img src="/images/account.svg" alt="Profile" class="h-8 w-8">
             </a>
@@ -79,10 +77,10 @@
         // function loadView(view, button) {
         //     // Remove active class from all buttons
         //     document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('active'));
-            
+
         //     // Add active class to the clicked button
         //     button.classList.add('active');
-            
+
         //     // Make an AJAX request to load the view
         //     fetch(`/${view}`)
         //         .then(response => response.text())
