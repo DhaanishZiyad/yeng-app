@@ -14,7 +14,7 @@
         </div>
         @foreach($pendingSessions as $session)
             <!-- Slim Card Div -->
-            <div class="bg-white p-6 py-4 mt-4 rounded-lg shadow-lg border-yeng-pink-500 border-2">
+            <a href="{{ route('session-view', $session->id) }}" class="block bg-white p-6 py-4 mt-4 rounded-lg shadow-lg border-yeng-pink-500 border-2 hover:shadow-md transition-shadow duration-200">
                 <!-- Instructor and Time -->
                 <div class="flex justify-between text-lg font-bold">
                     <p>{{ $session->instructor->name ?? 'N/A' }}</p>
@@ -28,7 +28,7 @@
                         Pending
                     </span>
                 </div>
-            </div>
+            </a>
         @endforeach
     @endif
 
@@ -65,7 +65,7 @@
         </div>
         @foreach($declinedSessions as $session)
             <!-- Slim Card Div -->
-            <div class="bg-white p-6 py-4 mt-4 rounded-lg shadow-lg border-yeng-pink-500 border-2">
+            <a href="{{ route('session-view', $session->id) }}" class="block bg-white p-6 py-4 mt-4 rounded-lg shadow-lg border-yeng-pink-500 border-2 hover:shadow-md transition-shadow duration-200">
                 <!-- Instructor and Time -->
                 <div class="flex justify-between text-lg font-bold">
                     <p>{{ $session->instructor->name ?? 'N/A' }}</p>
@@ -79,7 +79,7 @@
                         Declined
                     </span>
                 </div>
-            </div>
+            </a>
         @endforeach
     @endif
 
@@ -90,7 +90,7 @@
         </div>
         @foreach($cancelledSessions as $session)
             <!-- Slim Card Div -->
-            <div class="bg-white p-6 py-4 mt-4 rounded-lg shadow-lg border-yeng-pink-500 border-2">
+            <a href="{{ route('session-view', $session->id) }}" class="block bg-white p-6 py-4 mt-4 rounded-lg shadow-lg border-yeng-pink-500 border-2 hover:shadow-md transition-shadow duration-200">
                 <!-- Instructor and Time -->
                 <div class="flex justify-between text-lg font-bold">
                     <p>{{ $session->instructor->name ?? 'N/A' }}</p>
@@ -104,7 +104,7 @@
                         Cancelled
                     </span>
                 </div>
-            </div>
+            </a>
         @endforeach
     @endif
 
@@ -121,7 +121,7 @@
             </div>
 
             <!-- Slim Card Div -->
-            <div class="bg-white p-6 py-4 mt-4 rounded-lg shadow-lg border-yeng-pink-500 border-2">
+            <a href="{{ route('session-view', $session->id) }}" class="block bg-white p-6 py-4 mt-4 rounded-lg shadow-lg border-yeng-pink-500 border-2 hover:shadow-md transition-shadow duration-200">
                 <!-- Instructor and Time -->
                 <div class="flex justify-between text-lg font-bold">
                     <p>{{ $session->instructor->name ?? 'N/A' }}</p>
@@ -135,7 +135,7 @@
                         Cancelled
                     </span>
                 </div>
-            </div>
+            </a>
         @endforeach
     @endif
 
