@@ -2,12 +2,15 @@
 
 @section('content')
 
+
+    <!-- <p>Gender: {{ $user->gender }}</p>
+    <p>Age: {{ $age }}</p> -->
     <!-- Title Div -->
     <div class="flex justify-between font-raleway font-bold">
         <h1 class="text-xl">Upcoming Sessions</h1>
         <p class="text-yeng-pink-500 text-sm">VIEW ALL</p>
     </div>
-    
+
     @if($acceptedSessions->isNotEmpty())
         @php
             // Sort sessions by date and time to get the upcoming one
@@ -54,6 +57,8 @@
             <p class="text-yeng-pink-500 text-sm">VIEW ALL</p>
         </a>
     </div>
+
+
 
     <form method="POST" action="{{ route('logout') }}" class="mt-4">
         @csrf

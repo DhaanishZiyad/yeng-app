@@ -47,17 +47,28 @@
                 type="date" 
                 id="date" 
                 name="date" 
+                :value="old('date')" 
+                min="{{ date('Y-m-d') }}"
                 class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yeng-pink-500 text-gray-900 font-bold">
         </div>
 
-        <div class="mb-6">
+        <!-- <div class="mb-6">
             <label for="time" class="block text-sm font-bold text-gray-400">Time</label>
             <input 
                 type="time" 
                 id="time" 
                 name="time" 
                 class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yeng-pink-500 text-gray-900 font-bold">
-        </div>
+        </div> -->
+
+        <div class="mb-6">
+    <label for="time" class="block text-sm font-bold text-gray-400">Time</label>
+    <select 
+        id="time" 
+        name="time" 
+        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yeng-pink-500 text-gray-900 font-bold">
+    </select>
+</div>
 
         <div class="flex justify-center">
             <button 
@@ -67,5 +78,31 @@
             </button>
         </div>
     </form>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const timeSelect = document.getElementById('time');
+        const startHour = 6; // 6:00 AM
+        const endHour = 16; // 4:00 PM
+        const minuteOptions = [0, 15, 30, 45]; // Allowed minutes
+
+        for (let hour = startHour; hour <= endHour; hour++) {
+            // For the last hour (4:00 PM), only include '00' minutes
+            const minutesToAdd = hour === endHour ? [0] : minuteOptions;
+
+            for (const minutes of minutesToAdd) {
+                const ampm = hour >= 12 ? 'PM' : 'AM';
+                const formattedHour = hour > 12 ? hour - 12 : hour;
+                const formattedMinutes = minutes.toString().padStart(2, '0');
+                const formattedTime = `${formattedHour}:${formattedMinutes} ${ampm}`;
+
+                const option = document.createElement('option');
+                option.value = `${hour.toString().padStart(2, '0')}:${formattedMinutes}`;
+                option.textContent = formattedTime;
+                timeSelect.appendChild(option);
+            }
+        }
+    });
+</script>
 
 @endsection

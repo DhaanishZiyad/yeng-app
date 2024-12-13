@@ -32,6 +32,31 @@
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
 
+            <!-- Date of Birth -->
+            <div class="mt-1">
+                <x-text-input 
+                    id="dob" 
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yeng-pink-400 focus:border-yeng-pink-400 text-sm bg-white text-black" 
+                    type="date" 
+                    name="dob" 
+                    :value="old('dob')" 
+                    max="{{ date('Y-m-d') }}" 
+                    required 
+                />
+                <x-input-error :messages="$errors->get('dob')" class="mt-2" />
+            </div>
+
+            <!-- Gender -->
+            <div class="mt-1">
+                <select id="gender" name="gender" required class="block mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yeng-pink-400 focus:border-yeng-pink-400 text-sm bg-white text-black">
+                    <option value="" disabled selected>{{ __('Gender') }}</option>
+                    <option value="male">{{ __('Male') }}</option>
+                    <option value="female">{{ __('Female') }}</option>
+                    <option value="other">{{ __('Other') }}</option>
+                </select>
+                <x-input-error :messages="$errors->get('gender')" class="mt-2" />
+            </div>
+
             <!-- Address -->
             <div class="mt-1">
                 <x-text-input id="address" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yeng-pink-400 focus:border-yeng-pink-400 text-sm bg-white text-black" type="text" name="address" :value="old('address')" required autocomplete="address" placeholder="{{ __('Address') }}" />

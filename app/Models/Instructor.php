@@ -24,6 +24,8 @@ class Instructor extends Authenticatable
         'password',
         'address',
         'city',
+        'dob',
+        'gender',
     ];
 
     /**

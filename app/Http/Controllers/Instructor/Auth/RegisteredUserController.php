@@ -35,6 +35,8 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'address' => ['required', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:255'],
+            'dob' => ['required', 'date', 'before:today'],
+            'gender' => ['required', 'in:male,female,other'],
         ]);
 
         $instructor = Instructor::create([
@@ -43,6 +45,8 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'address' => $request->address,
             'city' => $request->city,
+            'dob' => $request->dob,
+            'gender' => $request->gender,
         ]);
 
         event(new Registered($instructor));

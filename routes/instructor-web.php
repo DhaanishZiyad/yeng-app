@@ -9,6 +9,9 @@ Route::prefix('instructor')->middleware('auth:instructor')->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])
         ->name('instructor.dashboard');
 
+    Route::get('/yoga-sessions/{id}', [YogaSessionController::class, 'show'])
+        ->name('instructor.session-view');
+
     Route::patch('/yoga-sessions/{id}/accept', [YogaSessionController::class, 'accept'])
         ->name('yoga-sessions.accept');
 

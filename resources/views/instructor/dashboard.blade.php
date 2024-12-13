@@ -7,25 +7,31 @@
         <h1 class="text-xl">Upcoming Sessions</h1>
         <p class="text-yeng-pink-500 text-sm">VIEW ALL</p>
     </div>
-    <!-- Card Div -->
 
     @if($acceptedSessions->isNotEmpty())
-        @foreach($acceptedSessions as $session)
+        @php
+            // Sort sessions by date and time to get the upcoming one
+            $upcomingSession = $acceptedSessions->sortBy(function($session) {
+                return \Carbon\Carbon::parse($session->date . ' ' . $session->time);
+            })->first();
+        @endphp
+
+        @if($upcomingSession)
             <!-- Card Div -->
-            <div class="mx-auto bg-white p-6 py-4 mt-4 rounded-lg shadow-lg border-yeng-pink-500 border-2">
+            <a href="{{ route('instructor.session-view', $upcomingSession->id) }}" class="block mx-auto bg-white p-6 py-4 mt-4 rounded-lg shadow-lg border-yeng-pink-500 border-2 hover:shadow-md transition-shadow duration-200">
                 <!-- Instructor and Time -->
                 <div class="flex text-sm font-bold justify-between">
                     <p class="text-gray-400">Client</p>
                     <p class="text-gray-400">Time</p>
                 </div>
                 <div class="flex text-lg font-bold justify-between">
-                    <p>{{ $session->user->name ?? 'N/A' }}</p>
-                    <p>{{ \Carbon\Carbon::parse($session->time)->format('H:i') }}</p>
+                    <p>{{ $upcomingSession->user->name ?? 'N/A' }}</p>
+                    <p>{{ \Carbon\Carbon::parse($upcomingSession->time)->format('H:i') }}</p>
                 </div>
 
                 <!-- Date -->
                 <div class="flex text-sm font-bold mt-2 justify-between">
-                    <p class="text-gray-400">{{ \Carbon\Carbon::parse($session->date)->format('l, jS F') }}</p>
+                    <p class="text-gray-400">{{ \Carbon\Carbon::parse($upcomingSession->date)->format('l, jS F') }}</p>
                     <span class="bg-green-100 text-green-800 text-xs font-semibold px-4 py-1 rounded-full">
                         Accepted
                     </span>
@@ -33,11 +39,10 @@
 
                 <!-- Location -->
                 <div class="flex text-sm font-bold mt-2">
-                    <p class="text-gray-400">⚲ {{ $session->location }}</p>
+                    <p class="text-gray-400">⚲ {{ $upcomingSession->location }}</p>
                 </div>
-
-            </div>
-        @endforeach
+            </a>
+        @endif
     @else
         <div class="text-gray-500 text-sm mt-4">No upcoming sessions.</div>
     @endif

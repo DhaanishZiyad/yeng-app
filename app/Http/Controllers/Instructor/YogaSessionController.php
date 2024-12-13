@@ -41,4 +41,10 @@ class YogaSessionController extends Controller
 
         return redirect()->route('instructor.dashboard')->with('success', 'Session successfully declined.');
     }
+
+    public function show($id)
+    {
+        $session = YogaSession::findOrFail($id); // Fetch session details by ID
+        return view('instructor.session-detail', compact('session')); // Render detailed view
+    }
 }
