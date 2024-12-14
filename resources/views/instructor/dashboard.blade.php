@@ -41,11 +41,23 @@
                 <div class="flex text-sm font-bold mt-2">
                     <p class="text-gray-400">⚲ {{ $upcomingSession->location }}</p>
                 </div>
+
+                <div class="flex text-sm font-bold justify-end mt-4">
+                    <form action="{{ route('yoga-sessions.cancel', $upcomingSession->id) }}" method="POST">
+                            @csrf
+                            @method('PATCH')
+                        <button class="text-yeng-pink-500 border-yeng-pink-500 border-2 p-8 py-2 rounded-full">Cancel</button>
+                    </form>
+                    <button class="bg-yeng-pink-500 p-3 py-2 ml-2 rounded-full">
+                        <img src="/images/Pencil.svg" alt="Icon" class="h-4 w-4">
+                    </button>
+                </div>
             </a>
         @endif
     @else
         <div class="text-gray-500 text-sm mt-4">No upcoming sessions.</div>
     @endif
+    
 
     <!-- <div class=" mx-auto bg-white p-6 py-4 mt-4 rounded-lg shadow-lg border-yeng-pink-500 border-2">
         <div class="flex text-sm font-bold justify-between">

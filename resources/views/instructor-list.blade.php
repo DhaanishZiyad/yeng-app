@@ -2,9 +2,12 @@
 
 @section('content')
 
-<!-- Title Div -->
-<div class="flex justify-between font-raleway font-bold">
-    <h1 class="text-xl">Instructors</h1>
+<!-- Title -->
+<div class="mb-8 flex items-center">
+    <a href="{{ url()->previous() }}">
+        <img src="/images/left arrow.svg" alt="Profile" class="h-8 w-8">
+    </a>
+    <h1 class="text-xl font-bold font-raleway ml-2">Instructors</h1>
 </div>
 @foreach ($instructors as $instructor)
     <div class="bg-white p-6 py-4 mt-4 rounded-lg shadow-lg border-yeng-pink-500 border-2 cursor-pointer">

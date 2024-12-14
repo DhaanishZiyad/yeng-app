@@ -26,6 +26,7 @@
                 readonly 
                 onclick="window.location.href='{{ route('instructor-list') }}';" 
             >
+            <x-input-error :messages="$errors->get('instructor')" class="mt-2" />
         </div>
 
         <div class="mb-4">
@@ -39,6 +40,7 @@
                 value="{{ old('location', $location) }}"
                 readonly
             >
+            <x-input-error :messages="$errors->get('location')" class="mt-2" />
         </div>
 
         <div class="mb-4">
@@ -50,25 +52,19 @@
                 :value="old('date')" 
                 min="{{ date('Y-m-d') }}"
                 class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yeng-pink-500 text-gray-900 font-bold">
+                <x-input-error :messages="$errors->get('date')" class="mt-2" />
         </div>
 
-        <!-- <div class="mb-6">
+        <div class="mb-6">
             <label for="time" class="block text-sm font-bold text-gray-400">Time</label>
-            <input 
-                type="time" 
+            <select 
                 id="time" 
                 name="time" 
                 class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yeng-pink-500 text-gray-900 font-bold">
-        </div> -->
-
-        <div class="mb-6">
-    <label for="time" class="block text-sm font-bold text-gray-400">Time</label>
-    <select 
-        id="time" 
-        name="time" 
-        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yeng-pink-500 text-gray-900 font-bold">
-    </select>
-</div>
+                <option value="" disabled selected>Select a time</option>
+            </select>
+            <x-input-error :messages="$errors->get('time')" class="mt-2" />
+        </div>
 
         <div class="flex justify-center">
             <button 

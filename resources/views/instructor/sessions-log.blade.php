@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.instructor-app')
 
 @section('content')
 
@@ -14,10 +14,10 @@
         </div>
         @foreach($pendingSessions as $session)
             <!-- Slim Card Div -->
-            <a href="{{ route('session-view', $session->id) }}" class="block bg-white p-6 py-4 mt-4 rounded-lg shadow-lg border-yeng-pink-500 border-2 hover:shadow-md transition-shadow duration-200">
+            <a href="{{ route('instructor.session-view', $session->id) }}" class="block bg-white p-6 py-4 mt-4 rounded-lg shadow-lg border-yeng-pink-500 border-2 hover:shadow-md transition-shadow duration-200">
                 <!-- Instructor and Time -->
                 <div class="flex justify-between text-lg font-bold">
-                    <p>{{ $session->instructor->name ?? 'N/A' }}</p>
+                    <p>{{ $session->user->name ?? 'N/A' }}</p>
                     <p>{{ \Carbon\Carbon::parse($session->time)->format('H:i') }}</p>
                 </div>
 
@@ -40,10 +40,10 @@
         </div>
         @foreach($acceptedSessions as $session)
             <!-- Slim Card Div -->
-            <a href="{{ route('session-view', $session->id) }}" class="block bg-white p-6 py-4 mt-4 rounded-lg shadow-lg border-yeng-pink-500 border-2 hover:shadow-md transition-shadow duration-200">
+            <a href="{{ route('instructor.session-view', $session->id) }}" class="block bg-white p-6 py-4 mt-4 rounded-lg shadow-lg border-yeng-pink-500 border-2 hover:shadow-md transition-shadow duration-200">
             <!-- Instructor and Time -->
                 <div class="flex justify-between text-lg font-bold">
-                    <p>{{ $session->instructor->name ?? 'N/A' }}</p>
+                    <p>{{ $session->user->name ?? 'N/A' }}</p>
                     <p>{{ \Carbon\Carbon::parse($session->time)->format('H:i') }}</p>
                 </div>
 
@@ -65,10 +65,10 @@
         </div>
         @foreach($declinedSessions as $session)
             <!-- Slim Card Div -->
-            <a href="{{ route('session-view', $session->id) }}" class="block bg-white p-6 py-4 mt-4 rounded-lg shadow-lg border-yeng-pink-500 border-2 hover:shadow-md transition-shadow duration-200">
+            <a href="{{ route('instructor.session-view', $session->id) }}" class="block bg-white p-6 py-4 mt-4 rounded-lg shadow-lg border-yeng-pink-500 border-2 hover:shadow-md transition-shadow duration-200">
                 <!-- Instructor and Time -->
                 <div class="flex justify-between text-lg font-bold">
-                    <p>{{ $session->instructor->name ?? 'N/A' }}</p>
+                    <p>{{ $session->user->name ?? 'N/A' }}</p>
                     <p>{{ \Carbon\Carbon::parse($session->time)->format('H:i') }}</p>
                 </div>
 
@@ -90,10 +90,10 @@
         </div>
         @foreach($cancelledSessions as $session)
             <!-- Slim Card Div -->
-            <a href="{{ route('session-view', $session->id) }}" class="block bg-white p-6 py-4 mt-4 rounded-lg shadow-lg border-yeng-pink-500 border-2 hover:shadow-md transition-shadow duration-200">
+            <a href="{{ route('instructor.session-view', $session->id) }}" class="block bg-white p-6 py-4 mt-4 rounded-lg shadow-lg border-yeng-pink-500 border-2 hover:shadow-md transition-shadow duration-200">
                 <!-- Instructor and Time -->
                 <div class="flex justify-between text-lg font-bold">
-                    <p>{{ $session->instructor->name ?? 'N/A' }}</p>
+                    <p>{{ $session->user->name ?? 'N/A' }}</p>
                     <p>{{ \Carbon\Carbon::parse($session->time)->format('H:i') }}</p>
                 </div>
 
@@ -116,10 +116,10 @@
         </div>
         @foreach($completedSessions as $session)
             <!-- Slim Card Div -->
-            <a href="{{ route('session-view', $session->id) }}" class="block bg-white p-6 py-4 mt-4 rounded-lg shadow-lg border-yeng-pink-500 border-2 hover:shadow-md transition-shadow duration-200">
+            <a href="{{ route('instructor.session-view', $session->id) }}" class="block bg-white p-6 py-4 mt-4 rounded-lg shadow-lg border-yeng-pink-500 border-2 hover:shadow-md transition-shadow duration-200">
                 <!-- Instructor and Time -->
                 <div class="flex justify-between text-lg font-bold">
-                    <p>{{ $session->instructor->name ?? 'N/A' }}</p>
+                    <p>{{ $session->user->name ?? 'N/A' }}</p>
                     <p>{{ \Carbon\Carbon::parse($session->time)->format('H:i') }}</p>
                 </div>
 
