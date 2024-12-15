@@ -11,6 +11,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/instructor', function () {
+    return view('instructor-welcome'); // Instructor page
+});
+
 Route::get('/dashboard', [HomeController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
@@ -25,12 +29,11 @@ Route::post('/yoga-sessions', [YogaSessionController::class, 'store'])
 
 Route::patch('/yoga-sessions/{id}/cancel', [YogaSessionController::class, 'cancel'])
     ->middleware(['auth', 'verified'])
-    ->name('yoga-sessions.cancel');
+    ->name('user.yoga-sessions.cancel');
 
 Route::get('/yoga-sessions/{id}', [YogaSessionController::class, 'show'])
     ->middleware(['auth', 'verified'])
     ->name('session-view');
-
 
 Route::get('/instructor-list', [InstructorListController::class, 'index'])
     ->middleware(['auth', 'verified'])
@@ -40,16 +43,17 @@ Route::get('/sessions-log', [SessionLogController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('sessions-log');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+Route::get('/profile', [ProfileController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('profile');
 
+Route::get('/profile/edit', [ProfileController::class, 'edit'])
+    ->middleware(['auth', 'verified'])
+    ->name('profile.edit');
 
-
-
-
+Route::patch('/profile', [ProfileController::class, 'update'])
+    ->middleware(['auth', 'verified'])
+    ->name('profile.update');
 
 require __DIR__.'/instructor-web.php';
 

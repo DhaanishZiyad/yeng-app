@@ -2,9 +2,6 @@
 
 @section('content')
 
-
-    <!-- <p>Gender: {{ $user->gender }}</p>
-    <p>Age: {{ $age }}</p> -->
     <!-- Title Div -->
     <div class="flex justify-between font-raleway font-bold">
         <h1 class="text-xl">Upcoming Sessions</h1>
@@ -44,6 +41,18 @@
                 <div class="flex text-sm font-bold mt-2">
                     <p class="text-gray-400">⚲ {{ $upcomingSession->location }}</p>
                 </div>
+
+                <!-- Buttons -->
+                <div class="flex text-sm font-bold justify-end mt-4">
+                <form action="{{ route('user.yoga-sessions.cancel', $upcomingSession->id) }}" method="POST">
+                @csrf
+                            @method('PATCH')
+                        <button class="text-yeng-pink-500 border-yeng-pink-500 border-2 p-8 py-2 rounded-full">Cancel</button>
+                    </form>
+                    <button class="bg-yeng-pink-500 p-3 py-2 ml-2 rounded-full">
+                        <img src="/images/Pencil.svg" alt="Icon" class="h-4 w-4">
+                    </button>
+                </div>
             </a>
         @endif
     @else
@@ -60,12 +69,6 @@
 
 
 
-    <form method="POST" action="{{ route('logout') }}" class="mt-4">
-        @csrf
-        <button type="submit" class="font-raleway font-bold w-full bg-yeng-pink-500 text-white py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 mt-2 logout-button-u"
-                onclick="event.preventDefault(); this.closest('form').submit();">
-            {{ __('Log Out') }}
-        </button>
-    </form>
+    
 
 @endsection

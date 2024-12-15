@@ -49,7 +49,7 @@ class YogaSessionController extends Controller
     {
         $session = YogaSession::where('id', $id)
                               ->where('user_id', auth()->id())
-                              ->where('status', 'pending') // Ensure only pending sessions can be canceled
+                              ->whereIn('status', ['pending', 'accepted'])
                               ->first();
 
         if (!$session) {

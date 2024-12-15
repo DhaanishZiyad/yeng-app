@@ -26,24 +26,24 @@
         <div class="flex flex-col gap-4 w-80">
             @if (Route::has('login'))
                 @auth
-                    <a href="{{ url('/dashboard') }}" class="font-raleway font-bold w-full bg-yeng-pink-500 text-white py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-center">
-                        Dashboard
+                    <a href="{{ url('/instructor/dashboard') }}" class="font-raleway font-bold w-full bg-yeng-pink-500 text-white py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-center">
+                        Instructor Dashboard
                     </a>
                 @else
-                    <a href="{{ route('login') }}" class="font-raleway font-bold w-full bg-yeng-pink-500 text-white py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-center">
-                        Log in
+                    <a href="{{ route('instructor.login') }}" class="font-raleway font-bold w-full bg-yeng-pink-500 text-white py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-center">
+                        Instructor Log in
                     </a>
-                    
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="font-raleway font-bold w-full bg-gray-500 text-white py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-center mt-2">
-                            Register
+
+                    @if (Route::has('instructor.register'))
+                        <a href="{{ route('instructor.register') }}" class="font-raleway font-bold w-full bg-gray-500 text-white py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 text-center mt-2">
+                            Instructor Register
                         </a>
                     @endif
                 @endauth
             @endif
             <div class="text-center mt-4">
-                <p class="text-sm font-raleway">Wanna log in as an instructor?</p>
-                <a href="/instructor" class="text-yeng-pink-500 font-bold hover:underline">Go to Instructor Page</a>
+                <p class="text-sm font-raleway">Wanna log in as a user?</p>
+                <a href="/" class="text-yeng-pink-500 font-bold hover:underline">Go to User Page</a>
             </div>
         </div>
     </div>

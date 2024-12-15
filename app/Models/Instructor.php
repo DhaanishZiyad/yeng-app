@@ -26,6 +26,7 @@ class Instructor extends Authenticatable
         'city',
         'dob',
         'gender',
+        'profile_picture',
     ];
 
     /**

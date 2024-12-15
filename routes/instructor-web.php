@@ -3,6 +3,7 @@
 use App\Http\Controllers\Instructor\SessionLogController;
 use App\Http\Controllers\Instructor\HomeController;
 use App\Http\Controllers\Instructor\YogaSessionController;
+use App\Http\Controllers\Instructor\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('instructor')->middleware('auth:instructor')->group(function () {
@@ -22,13 +23,17 @@ Route::prefix('instructor')->middleware('auth:instructor')->group(function () {
     Route::patch('/yoga-sessions/{id}/cancel', [YogaSessionController::class, 'cancel'])
         ->name('yoga-sessions.cancel');
 
-
     Route::get('/sessions-log', [SessionLogController::class, 'index'])
         ->name('instructor.sessions-log');
 
+    Route::get('/profile', [ProfileController::class, 'index'])
+        ->name('instructor.profile');
 
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])
+        ->name('instructor.profile.edit');
 
-
+    Route::patch('/profile', [ProfileController::class, 'update'])
+        ->name('instructor.profile.update');
 });
 
 

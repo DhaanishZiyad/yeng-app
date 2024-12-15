@@ -55,7 +55,7 @@
             </a>
         </button>
         <button onclick="" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center">
-            <a href="">
+            <a href="{{ route('instructor.profile') }}">
                 <img src="/images/account.svg" alt="Profile" class="h-8 w-8">
             </a>
         </button>

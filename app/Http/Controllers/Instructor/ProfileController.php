@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Instructor;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -9,25 +10,25 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
-use App\Models\User;
+use App\Models\Instructor;
 
 class ProfileController extends Controller
 {
     public function index()
     {
-        $user = auth()->user();
-        return view('profile' , compact('user'));
+        $instructor = auth()->user();
+        return view('instructor.profile' , compact('instructor'));
     }
 
     public function edit()
     {
-        $user = auth()->user();
-        return view('profile.edit', compact('user')); // Make sure 'profile.edit' exists
+        $instructor = auth()->user();
+        return view('instructor.profile.edit', compact('instructor')); // Make sure 'profile.edit' exists
     }
 
     public function update(Request $request)
     {
-        $user = auth()->user();
+        $instructor = auth()->user();
 
         // Validation for all fields
         $validatedData = $request->validate([
@@ -39,27 +40,27 @@ class ProfileController extends Controller
             'city' => 'nullable|string|max:255',
         ]);
 
-        // Update the user's profile picture if provided
+        // Update the instructor's profile picture if provided
         if ($request->hasFile('profile_picture')) {
             // Delete old picture if exists
-            if ($user->profile_picture) {
-                Storage::delete($user->profile_picture);
+            if ($instructor->profile_picture) {
+                Storage::delete($instructor->profile_picture);
             }
 
             // Store new profile picture
             $path = $request->file('profile_picture')->store('profile_pictures', 'public');
-            $user->profile_picture = $path;
+            $instructor->profile_picture = $path;
         }
 
-        // Update other user fields
-        $user->name = $request->input('name');
-        $user->dob = $request->input('dob');
-        $user->gender = $request->input('gender');
-        $user->address = $request->input('address');
-        $user->city = $request->input('city');
+        // Update other instructor fields
+        $instructor->name = $request->input('name');
+        $instructor->dob = $request->input('dob');
+        $instructor->gender = $request->input('gender');
+        $instructor->address = $request->input('address');
+        $instructor->city = $request->input('city');
 
-        // Save the updated user information
-        $user->save();
+        // Save the updated instructor information
+        $instructor->save();
 
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Profile updated successfully!');

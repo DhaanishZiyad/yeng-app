@@ -55,4 +55,23 @@
                 </span>
             </div>
         </div>
+
+        <!-- Buttons -->
+        @if (in_array($session->status, ['pending', 'accepted']))
+            <div class="flex text-sm font-bold justify-end mt-4">
+                <!-- Cancel Button -->
+                <form action="{{ route('yoga-sessions.cancel', $session->id) }}" method="POST">
+                    @csrf
+                    @method('PATCH')
+                    <button class="text-yeng-pink-500 border-yeng-pink-500 border-2 p-8 py-2 rounded-full">
+                        Cancel
+                    </button>
+                </form>
+
+                <!-- Edit Button -->
+                <button class="bg-yeng-pink-500 p-3 py-2 ml-2 rounded-full">
+                    <img src="/images/Pencil.svg" alt="Icon" class="h-4 w-4">
+                </button>
+            </div>
+        @endif
 @endsection

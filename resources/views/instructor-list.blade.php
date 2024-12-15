@@ -14,8 +14,8 @@
         <div class="flex items-center">
             <!-- Profile Circle -->
             <div class="flex-shrink-0 h-14 w-14 rounded-full overflow-hidden bg-gray-200">
-                @if($instructor->profile_image_path)
-                    <img src="{{ asset($instructor->profile_image_path) }}" alt="{{ $instructor->name }}" class="h-full w-full object-cover">
+                @if($instructor->profile_picture)
+                    <img src="{{ asset('storage/' . $instructor->profile_picture) }}" alt="{{ $instructor->name }}" class="h-full w-full object-cover">
                 @else
                     <div class="bg-gray-200 text-yeng-pink-500 flex items-center justify-center h-full w-full font-bold uppercase">
                         {{ strtoupper(substr($instructor->name, 0, 1)) }}
