@@ -5,7 +5,6 @@
     <!-- Title Div -->
     <div class="flex justify-between font-raleway font-bold">
         <h1 class="text-xl">Upcoming Sessions</h1>
-        <p class="text-yeng-pink-500 text-sm">VIEW ALL</p>
     </div>
 
     @if($acceptedSessions->isNotEmpty())
@@ -44,9 +43,9 @@
 
                 <!-- Buttons -->
                 <div class="flex text-sm font-bold justify-end mt-4">
-                <form action="{{ route('user.yoga-sessions.cancel', $upcomingSession->id) }}" method="POST">
-                @csrf
-                            @method('PATCH')
+                    <form action="{{ route('user.yoga-sessions.cancel', $upcomingSession->id) }}" method="POST">
+                        @csrf
+                        @method('PATCH')
                         <button class="text-yeng-pink-500 border-yeng-pink-500 border-2 p-8 py-2 rounded-full">Cancel</button>
                     </form>
                     <button class="bg-yeng-pink-500 p-3 py-2 ml-2 rounded-full">

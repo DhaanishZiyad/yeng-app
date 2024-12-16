@@ -5,7 +5,6 @@
     <!-- Title Div -->
     <div class="flex justify-between font-raleway font-bold">
         <h1 class="text-xl">Upcoming Sessions</h1>
-        <p class="text-yeng-pink-500 text-sm">VIEW ALL</p>
     </div>
 
     @if($acceptedSessions->isNotEmpty())
@@ -64,7 +63,7 @@
         <h1 class="text-xl">Recieved Requests</h1>
         <p class="text-yeng-pink-500 text-sm">VIEW ALL</p>
     </div>
-    
+
     @if($pendingSessions->isNotEmpty())
         @foreach($pendingSessions as $session)
             <!-- Card Div -->
@@ -107,12 +106,11 @@
                     </form>
                 </div>
             </div>
-            
         @endforeach
     @else
-        <div class="text-gray-500 text-sm mt-4">No upcoming sessions.</div>
+        <div class="text-gray-500 text-sm mt-4">No requests recieved.</div>
     @endif
 
-    
+
 @endsection
 
