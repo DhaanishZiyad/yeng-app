@@ -9,15 +9,18 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\YogaSession;
 use App\Models\User;
+use App\Models\Instructor;
 use Carbon\Carbon;
 
 class HomeController extends Controller
 {
     public function index()
     {
+        $user = Auth::user(); // Get the currently authenticated user
 
-        $user = Auth::user();
-        $age = Carbon::parse($user->dob)->age;
+        // Fetch instructors from the same city as the user
+        $instructors = Instructor::where('city', $user->city)->get();
+
         // Fetch pending sessions for the logged-in user
         $pendingSessions = YogaSession::where('user_id', auth()->id())
             ->where('status', 'pending')
@@ -27,6 +30,6 @@ class HomeController extends Controller
             ->where('status', 'accepted')
             ->get();
 
-        return view('dashboard', compact('pendingSessions', 'acceptedSessions', 'user', 'age'));
+        return view('dashboard', compact('pendingSessions', 'acceptedSessions', 'instructors'));
     }
 }

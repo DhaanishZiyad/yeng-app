@@ -39,22 +39,22 @@
 
     <!-- Bottom Nav -->
     <div class="fixed bottom-0 left-0 right-0 bg-yeng-pink-500 shadow-lg p-2 m-6 flex justify-between items-center border-t border-gray-200 z-50 rounded-full">
-        <button onclick="" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center">
+        <button class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('instructor.dashboard') ? 'bg-yeng-pink-300' : '' }}">
             <a href="{{ route('instructor.dashboard') }}">
                 <img src="/images/House.svg" alt="Home" class="h-8 w-8">
             </a>
         </button>
-        <button onclick="" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center">
+        <button class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('instructor.requests') ? 'bg-yeng-pink-300' : '' }}">
             <a href="{{ route('instructor.requests') }}">
-                <img src="/images/message.svg" alt="Home" class="h-8 w-8">
+                <img src="/images/message.svg" alt="Requests" class="h-8 w-8">
             </a>
         </button>
-        <button onclick="" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center">
+        <button class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('instructor.sessions-log') ? 'bg-yeng-pink-300' : '' }}">
             <a href="{{ route('instructor.sessions-log') }}">
                 <img src="/images/calendar.svg" alt="Sessions" class="h-8 w-8">
             </a>
         </button>
-        <button onclick="" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center">
+        <button class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('instructor.profile') ? 'bg-yeng-pink-300' : '' }}">
             <a href="{{ route('instructor.profile') }}">
                 <img src="/images/account.svg" alt="Profile" class="h-8 w-8">
             </a>
@@ -62,36 +62,6 @@
     </div>
 
     <script>
-        // Function to load views dynamically
-        // function loadView(view, button) {
-        //     fetch(`/${view}`)
-        //         .then(response => response.text())
-        //         .then(html => {
-        //             const parser = new DOMParser();
-        //             const doc = parser.parseFromString(html, 'text/html');
-        //             const newContent = doc.querySelector('#content').innerHTML;
-        //             document.querySelector('#content').innerHTML = newContent;
-        //             highlightButton(button);
-        //         })
-        //         .catch(error => console.warn('Error loading view:', error));
-        // }
-
-        // function loadView(view, button) {
-        //     // Remove active class from all buttons
-        //     document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('active'));
-
-        //     // Add active class to the clicked button
-        //     button.classList.add('active');
-
-        //     // Make an AJAX request to load the view
-        //     fetch(`/${view}`)
-        //         .then(response => response.text())
-        //         .then(html => {
-        //             document.getElementById('content').innerHTML = html;
-        //         })
-        //         .catch(error => console.error('Error loading view:', error));
-        // }
-
         // Top Nav toggle
         function toggleTopNav(selected) {
             const sessionsBtn = document.getElementById('sessions-btn');

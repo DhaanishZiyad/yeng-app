@@ -39,59 +39,21 @@
 
     <!-- Bottom Nav -->
     <div class="fixed bottom-0 left-0 right-0 bg-yeng-pink-500 shadow-lg p-2 m-6 flex justify-between items-center border-t border-gray-200 z-50 rounded-full">
-        <button class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center">
-            <a href="{{ route('dashboard') }}">
-                <img src="/images/House.svg" alt="Home" class="h-8 w-8">
-            </a>
-        </button>
-        <button class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center">
-            <a href="{{ route('booking') }}">
-                <img src="/images/Plus.svg" alt="Home" class="h-8 w-8">
-            </a>
-        </button>
-        <button class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center">
-            <a href="{{ route('sessions-log') }}">
-                <img src="/images/calendar.svg" alt="Sessions" class="h-8 w-8">
-            </a>
-        </button>
-        <button class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center">
-            <a href="{{ route('profile') }}">
-                <img src="/images/account.svg" alt="Profile" class="h-8 w-8">
-            </a>
-        </button>
+        <a href="{{ route('dashboard') }}" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('dashboard') ? 'bg-yeng-pink-300' : '' }}">
+            <img src="/images/House.svg" alt="Home" class="h-8 w-8">
+        </a>
+        <a href="{{ route('booking') }}" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('booking') ? 'bg-yeng-pink-300' : '' }}">
+            <img src="/images/Plus.svg" alt="Home" class="h-8 w-8">
+        </a>
+        <a href="{{ route('sessions-log') }}" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('sessions-log') ? 'bg-yeng-pink-300' : '' }}">
+            <img src="/images/calendar.svg" alt="Sessions" class="h-8 w-8">
+        </a>
+        <a href="{{ route('profile') }}" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('profile') ? 'bg-yeng-pink-300' : '' }}">
+            <img src="/images/account.svg" alt="Profile" class="h-8 w-8">
+        </a>
     </div>
 
     <script>
-        // Function to load views dynamically
-        // function loadView(view, button) {
-        //     fetch(`/${view}`)
-        //         .then(response => response.text())
-        //         .then(html => {
-        //             const parser = new DOMParser();
-        //             const doc = parser.parseFromString(html, 'text/html');
-        //             const newContent = doc.querySelector('#content').innerHTML;
-        //             document.querySelector('#content').innerHTML = newContent;
-        //             highlightButton(button);
-        //         })
-        //         .catch(error => console.warn('Error loading view:', error));
-        // }
-
-        // function loadView(view, button) {
-        //     // Remove active class from all buttons
-        //     document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('active'));
-            
-        //     // Add active class to the clicked button
-        //     button.classList.add('active');
-            
-        //     // Make an AJAX request to load the view
-        //     fetch(`/${view}`)
-        //         .then(response => response.text())
-        //         .then(html => {
-        //             document.getElementById('content').innerHTML = html;
-        //         })
-        //         .catch(error => console.error('Error loading view:', error));
-        // }
-
         // Top Nav toggle
         function toggleTopNav(selected) {
             const sessionsBtn = document.getElementById('sessions-btn');
