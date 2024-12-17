@@ -48,9 +48,6 @@
                             @method('PATCH')
                         <button class="text-yeng-pink-500 border-yeng-pink-500 border-2 p-8 py-2 rounded-full">Cancel</button>
                     </form>
-                    <button class="bg-yeng-pink-500 p-3 py-2 ml-2 rounded-full">
-                        <img src="/images/Pencil.svg" alt="Icon" class="h-4 w-4">
-                    </button>
                 </div>
             </a>
         @endif

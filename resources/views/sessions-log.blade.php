@@ -70,12 +70,12 @@
         <!-- Sub Title Div -->
         <div class="flex justify-between font-raleway font-bold mt-4">
             <h1 class="text-gray-400">Declined Sessions</h1>
-            <form action="{{ route('sessions.clear.declined') }}" method="POST" onsubmit="return confirm('Are you sure you want to clear all Declined sessions?');">
+            <!-- <form action="{{ route('sessions.clear.declined') }}" method="POST" onsubmit="return confirm('Are you sure you want to clear all Declined sessions?');">
                 @csrf
                 <button type="submit" class="bg-yeng-pink-100 text-yeng-pink-500 px-3 py-1 rounded-md text-sm hover:bg-red-600 transition">
                     Clear
                 </button>
-            </form>
+            </form> -->
         </div>
         @foreach($declinedSessions as $session)
             <!-- Slim Card Div -->
@@ -102,12 +102,12 @@
         <!-- Sub Title Div -->
         <div class="flex justify-between font-raleway font-bold mt-4">
             <h1 class="text-gray-400">Cancelled Sessions</h1>
-            <form action="{{ route('sessions.clear.cancelled') }}" method="POST" onsubmit="return confirm('Are you sure you want to clear all Cancelled sessions?');">
+            <!-- <form action="{{ route('sessions.clear.cancelled') }}" method="POST" onsubmit="return confirm('Are you sure you want to clear all Cancelled sessions?');">
                 @csrf
                 <button type="submit" class="bg-yeng-pink-100 text-yeng-pink-500 px-3 py-1 rounded-md text-sm hover:bg-red-600 transition">
                     Clear
                 </button>
-            </form>
+            </form> -->
         </div>
         @foreach($cancelledSessions as $session)
             <!-- Slim Card Div -->

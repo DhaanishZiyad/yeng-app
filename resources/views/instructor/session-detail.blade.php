@@ -65,11 +65,6 @@
                         Cancel
                     </button>
                 </form>
-
-                <!-- Edit Button -->
-                <button class="bg-yeng-pink-500 p-3 py-2 ml-2 rounded-full">
-                    <img src="/images/Pencil.svg" alt="Icon" class="h-4 w-4">
-                </button>
             </div>
         @endif
 @endsection

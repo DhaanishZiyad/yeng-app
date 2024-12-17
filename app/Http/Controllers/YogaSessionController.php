@@ -67,27 +67,47 @@ class YogaSessionController extends Controller
         return view('session-detail', compact('session')); // Render detailed view
     }
 
-    // public function clearDeclined()
-    // {
-    //     // Update status of all Declined sessions for the logged-in user to "cleared"
-    //     \App\Models\YogaSession::where('status', 'declined')
-    //         ->where('user_id', auth()->id()) // Ensure it belongs to the logged-in user
-    //         ->update(['status' => 'cleared']);
+    public function edit($id)
+    {
+        // Fetch the session belonging to the user and check status
+        $session = YogaSession::where('id', $id)
+                              ->where('user_id', auth()->id())
+                              ->whereIn('status', ['pending', 'accepted'])
+                              ->firstOrFail();
 
-    //     // Redirect back with a success message
-    //     return redirect()->route('sessions-log')->with('success', 'Declined sessions have been cleared.');
-    // }
+        // Pass session data to the view
+        return view('edit-session', [
+            'session' => $session,
+            'instructorName' => $session->instructor->name ?? 'N/A',
+            'instructorId' => $session->instructor_id,
+            'location' => $session->location,
+        ]);
+    }
 
-    // public function clearCancelled()
-    // {
-    //     // Update status of all Cancelled sessions for the logged-in user to "cleared"
-    //     \App\Models\YogaSession::where('status', 'cancelled')
-    //         ->where('user_id', auth()->id()) // Ensure it belongs to the logged-in user
-    //         ->update(['status' => 'cleared']);
+    public function update(Request $request, $id)
+    {
+        // Validate the form data
+        $request->validate([
+            'date' => 'required|date',
+            'time' => 'required',
+            'location' => 'required|string',
+        ]);
 
-    //     // Redirect back with a success message
-    //     return redirect()->route('sessions-log')->with('success', 'Cancelled sessions have been cleared.');
-    // }
+        // Fetch the session and check if it can be updated
+        $session = YogaSession::where('id', $id)
+                              ->where('user_id', auth()->id())
+                              ->whereIn('status', ['pending', 'accepted'])
+                              ->firstOrFail();
+
+        // Update the session details
+        $session->update([
+            'date' => $request->input('date'),
+            'time' => $request->input('time'),
+            'location' => $request->input('location'),
+        ]);
+
+        return redirect()->route('sessions-log')->with('success', 'Session updated successfully.');
+    }
 
     public function clearDeclined()
     {
@@ -95,37 +115,37 @@ class YogaSessionController extends Controller
         $sessions = YogaSession::where('user_id', auth()->id())
                                ->where('status', 'declined')
                                ->get();
-    
+
         // Check if there are any sessions to clear
         if ($sessions->isEmpty()) {
             return redirect()->route('sessions-log')->with('error', 'No declined sessions to clear.');
         }
-    
+
         // Update status to "cleared"
         foreach ($sessions as $session) {
             $session->update(['status' => 'cleared']);
         }
-    
+
         return redirect()->route('sessions-log')->with('success', 'Declined sessions have been cleared.');
     }
-    
+
     public function clearCancelled()
     {
         // Find all cancelled sessions belonging to the authenticated user
         $sessions = YogaSession::where('user_id', auth()->id())
                                ->where('status', 'cancelled')
                                ->get();
-    
+
         // Check if there are any sessions to clear
         if ($sessions->isEmpty()) {
             return redirect()->route('sessions-log')->with('error', 'No cancelled sessions to clear.');
         }
-    
+
         // Update status to "cleared"
         foreach ($sessions as $session) {
             $session->update(['status' => 'cleared']);
         }
-    
+
         return redirect()->route('sessions-log')->with('success', 'Cancelled sessions have been cleared.');
     }
 

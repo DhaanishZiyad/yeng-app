@@ -69,9 +69,11 @@
                 </form>
 
                 <!-- Edit Button -->
-                <button class="bg-yeng-pink-500 p-3 py-2 ml-2 rounded-full">
-                    <img src="/images/Pencil.svg" alt="Icon" class="h-4 w-4">
-                </button>
+                 <a href="{{ route('yoga-sessions.edit', $session->id) }}">
+                    <button class="bg-yeng-pink-500 p-3 py-2 ml-2 rounded-full">
+                        <img src="/images/Pencil.svg" alt="Icon" class="h-6 w-4">
+                    </button>
+                 </a>
             </div>
         @endif
 @endsection

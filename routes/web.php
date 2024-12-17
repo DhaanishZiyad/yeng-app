@@ -35,6 +35,15 @@ Route::get('/yoga-sessions/{id}', [YogaSessionController::class, 'show'])
     ->middleware(['auth', 'verified'])
     ->name('session-view');
 
+Route::get('/yoga-sessions/{id}/edit', [YogaSessionController::class, 'edit'])
+    ->middleware(['auth', 'verified'])
+    ->name('yoga-sessions.edit');
+
+Route::put('/yoga-sessions/{id}', [YogaSessionController::class, 'update'])
+    ->middleware(['auth', 'verified'])
+    ->name('yoga-sessions.update');
+
+
 Route::post('/yoga-sessions/clear-declined', [YogaSessionController::class, 'clearDeclined'])
     ->middleware(['auth', 'verified'])
     ->name('sessions.clear.declined');
