@@ -104,6 +104,7 @@ class YogaSessionController extends Controller
             'date' => $request->input('date'),
             'time' => $request->input('time'),
             'location' => $request->input('location'),
+            'status' => 'pending', // Reset the status to pending
         ]);
 
         return redirect()->route('sessions-log')->with('success', 'Session updated successfully.');
