@@ -30,7 +30,8 @@
             @else
                 <p class="text-gray-500 mt-2">No profile picture uploaded.</p>
             @endif
-            <input type="file" name="profile_picture" id="profile_picture" class="mt-4 block w-full">
+            <input type="file" name="profile_picture" id="profile_picture" accept="image/*" class="mt-4 block w-full">
+            <small class="text-gray-500">Max file size: 2MB</small>
         </div>
 
         <!-- Name -->
@@ -122,5 +123,14 @@
         </div>
         
     </form>
+    <script>
+        document.getElementById('profile_picture').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file && file.size > 2 * 1024 * 1024) { // 2MB in bytes
+                alert('File size exceeds 2MB. Please upload a smaller file.');
+                event.target.value = ''; // Clear the file input
+            }
+        });
+    </script>
 
 @endsection
