@@ -42,7 +42,7 @@ class YogaSessionController extends Controller
         ]);
 
         // Redirect with success message
-        return redirect()->route('dashboard')->with('success', 'Session successfully booked!');
+        return redirect()->back()->with('success', 'Session successfully booked!');
     }
 
     public function cancel($id)

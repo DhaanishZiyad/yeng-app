@@ -33,7 +33,7 @@ class ProfileController extends Controller
         $validatedData = $request->validate([
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Limit size to 2MB
             'name' => 'required|string|max:255',
-            'dob' => 'nullable|date|before_or_equal:today',
+            'dob' => 'required|date|before_or_equal:today',
             'gender' => 'nullable|in:male,female,other',
             'address' => 'required|string|max:255',
             'city' => 'nullable|string|max:255',

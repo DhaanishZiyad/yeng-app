@@ -9,6 +9,13 @@
         <h1 class="text-xl">Book a Session</h1>
     </div>
 
+        <!-- Success Message -->
+    @if(session('success'))
+        <div class="bg-green-500 text-white p-2 rounded mb-4">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <form action="{{ route('yoga-sessions.store') }}" method="POST" class="mx-auto bg-white p-6 py-4 mt-12 rounded-lg shadow-lg border-yeng-pink-500 border-2">
         @csrf
 
