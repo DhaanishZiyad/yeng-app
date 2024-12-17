@@ -67,4 +67,27 @@ class YogaSessionController extends Controller
         return view('session-detail', compact('session')); // Render detailed view
     }
 
+    public function clearDeclined()
+    {
+        // Update status of all Declined sessions for the logged-in user to "cleared"
+        \App\Models\YogaSession::where('status', 'declined')
+            ->where('user_id', auth()->id()) // Ensure it belongs to the logged-in user
+            ->update(['status' => 'cleared']);
+
+        // Redirect back with a success message
+        return redirect()->route('sessions-log')->with('success', 'Declined sessions have been cleared.');
+    }
+
+    public function clearCancelled()
+    {
+        // Update status of all Cancelled sessions for the logged-in user to "cleared"
+        \App\Models\YogaSession::where('status', 'cancelled')
+            ->where('user_id', auth()->id()) // Ensure it belongs to the logged-in user
+            ->update(['status' => 'cleared']);
+
+        // Redirect back with a success message
+        return redirect()->route('sessions-log')->with('success', 'Cancelled sessions have been cleared.');
+    }
+
+
 }

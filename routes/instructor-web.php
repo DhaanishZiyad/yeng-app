@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\Instructor\SessionLogController;
 use App\Http\Controllers\Instructor\HomeController;
 use App\Http\Controllers\Instructor\YogaSessionController;
@@ -22,7 +21,7 @@ Route::prefix('instructor')->middleware('auth:instructor')->group(function () {
         ->name('yoga-sessions.decline');
 
     Route::patch('/yoga-sessions/{id}/cancel', [YogaSessionController::class, 'cancel'])
-        ->name('yoga-sessions.cancel');
+        ->name('instructor.yoga-sessions.cancel');
 
     Route::get('/requests', [RequestsController::class, 'index'])
         ->name('instructor.requests');

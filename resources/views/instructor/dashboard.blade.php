@@ -43,7 +43,7 @@
 
                 <!-- Buttons -->
                 <div class="flex text-sm font-bold justify-end mt-4">
-                    <form action="{{ route('yoga-sessions.cancel', $upcomingSession->id) }}" method="POST">
+                    <form action="{{ route('instructor.yoga-sessions.cancel', $upcomingSession->id) }}" method="POST">
                             @csrf
                             @method('PATCH')
                         <button class="text-yeng-pink-500 border-yeng-pink-500 border-2 p-8 py-2 rounded-full">Cancel</button>
@@ -55,7 +55,7 @@
             </a>
         @endif
     @else
-        <div class="text-gray-500 text-sm mt-4">No upcoming sessions.</div>
+        <div class="text-gray-500 text-sm mt-4 mb-32">No upcoming sessions.</div>
     @endif
 
     <!-- Title Div -->

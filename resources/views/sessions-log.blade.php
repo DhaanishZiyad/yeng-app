@@ -7,7 +7,13 @@
         <h1 class="text-xl">Session History</h1>
     </div>
 
+    <!-- to check if there is a session to show message -->
+    @php
+        $hasSessions = false;
+    @endphp
+
     @if($pendingSessions->isNotEmpty())
+        @php $hasSessions = true; @endphp
         <!-- Sub Title Div -->
         <div class="flex justify-between font-raleway font-bold mt-4">
             <h1 class="text-gray-400">Pending Sessions</h1>
@@ -34,6 +40,7 @@
 
 
     @if($acceptedSessions->isNotEmpty())
+        @php $hasSessions = true; @endphp
         <!-- Sub Title Div -->
         <div class="flex justify-between font-raleway font-bold mt-4">
             <h1 class="text-gray-400">Accepted Sessions</h1>
@@ -59,9 +66,16 @@
     @endif
 
     @if($declinedSessions->isNotEmpty())
+        @php $hasSessions = true; @endphp
         <!-- Sub Title Div -->
         <div class="flex justify-between font-raleway font-bold mt-4">
             <h1 class="text-gray-400">Declined Sessions</h1>
+            <form action="{{ route('sessions.clear.declined') }}" method="POST" onsubmit="return confirm('Are you sure you want to clear all Declined sessions?');">
+                @csrf
+                <button type="submit" class="bg-yeng-pink-100 text-yeng-pink-500 px-3 py-1 rounded-md text-sm hover:bg-red-600 transition">
+                    Clear
+                </button>
+            </form>
         </div>
         @foreach($declinedSessions as $session)
             <!-- Slim Card Div -->
@@ -84,9 +98,16 @@
     @endif
 
     @if($cancelledSessions->isNotEmpty())
+        @php $hasSessions = true; @endphp
         <!-- Sub Title Div -->
         <div class="flex justify-between font-raleway font-bold mt-4">
             <h1 class="text-gray-400">Cancelled Sessions</h1>
+            <form action="{{ route('sessions.clear.cancelled') }}" method="POST" onsubmit="return confirm('Are you sure you want to clear all Cancelled sessions?');">
+                @csrf
+                <button type="submit" class="bg-yeng-pink-100 text-yeng-pink-500 px-3 py-1 rounded-md text-sm hover:bg-red-600 transition">
+                    Clear
+                </button>
+            </form>
         </div>
         @foreach($cancelledSessions as $session)
             <!-- Slim Card Div -->
@@ -110,6 +131,7 @@
 
 
     @if($completedSessions->isNotEmpty())
+        @php $hasSessions = true; @endphp
         <!-- Sub Title Div -->
         <div class="flex justify-between font-raleway font-bold mt-4">
             <h1 class="text-gray-400">Completed Sessions</h1>
@@ -132,6 +154,10 @@
                 </div>
             </a>
         @endforeach
+    @endif
+
+    @if(!$hasSessions)
+        <div class="text-gray-500 text-sm mt-4">No sessions made.</div>
     @endif
 
 @endsection

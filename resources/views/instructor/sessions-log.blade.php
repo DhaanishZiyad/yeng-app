@@ -7,7 +7,13 @@
         <h1 class="text-xl">Session History</h1>
     </div>
 
+    <!-- to check if there is a session to show message -->
+    @php
+        $hasSessions = false;
+    @endphp
+
     @if($pendingSessions->isNotEmpty())
+        @php $hasSessions = true; @endphp
         <!-- Sub Title Div -->
         <div class="flex justify-between font-raleway font-bold mt-4">
             <h1 class="text-gray-400">Pending Sessions</h1>
@@ -34,6 +40,7 @@
 
 
     @if($acceptedSessions->isNotEmpty())
+        @php $hasSessions = true; @endphp
         <!-- Sub Title Div -->
         <div class="flex justify-between font-raleway font-bold mt-4">
             <h1 class="text-gray-400">Accepted Sessions</h1>
@@ -59,6 +66,7 @@
     @endif
 
     @if($declinedSessions->isNotEmpty())
+        @php $hasSessions = true; @endphp
         <!-- Sub Title Div -->
         <div class="flex justify-between font-raleway font-bold mt-4">
             <h1 class="text-gray-400">Declined Sessions</h1>
@@ -84,6 +92,7 @@
     @endif
 
     @if($cancelledSessions->isNotEmpty())
+        @php $hasSessions = true; @endphp
         <!-- Sub Title Div -->
         <div class="flex justify-between font-raleway font-bold mt-4">
             <h1 class="text-gray-400">Cancelled Sessions</h1>
@@ -110,6 +119,7 @@
 
 
     @if($completedSessions->isNotEmpty())
+        @php $hasSessions = true; @endphp
         <!-- Sub Title Div -->
         <div class="flex justify-between font-raleway font-bold mt-4">
             <h1 class="text-gray-400">Completed Sessions</h1>
@@ -132,6 +142,10 @@
                 </div>
             </a>
         @endforeach
+    @endif
+
+    @if(!$hasSessions)
+        <div class="text-gray-500 text-sm mt-4">No sessions made.</div>
     @endif
 
 @endsection

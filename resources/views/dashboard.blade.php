@@ -55,7 +55,7 @@
             </a>
         @endif
     @else
-        <div class="text-gray-500 text-sm mt-4">No upcoming sessions.</div>
+        <div class="text-gray-500 text-sm mt-4 mb-32">No upcoming sessions.</div>
     @endif
 
     <!-- Title Div -->
