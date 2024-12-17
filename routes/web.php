@@ -43,7 +43,6 @@ Route::put('/yoga-sessions/{id}', [YogaSessionController::class, 'update'])
     ->middleware(['auth', 'verified'])
     ->name('yoga-sessions.update');
 
-
 Route::post('/yoga-sessions/clear-declined', [YogaSessionController::class, 'clearDeclined'])
     ->middleware(['auth', 'verified'])
     ->name('sessions.clear.declined');
@@ -55,6 +54,10 @@ Route::post('/yoga-sessions/clear-cancelled', [YogaSessionController::class, 'cl
 Route::get('/instructor-list', [InstructorListController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('instructor-list');
+
+Route::get('/instructors/{id}', [InstructorListController::class, 'show'])
+    ->middleware(['auth', 'verified'])
+    ->name('instructors.show');
 
 Route::get('/sessions-log', [SessionLogController::class, 'index'])
     ->middleware(['auth', 'verified'])

@@ -61,7 +61,7 @@
                 <form action="{{ route('instructor.yoga-sessions.cancel', $session->id) }}" method="POST">
                     @csrf
                     @method('PATCH')
-                    <button class="text-yeng-pink-500 border-yeng-pink-500 border-2 p-8 py-2 rounded-full">
+                    <button class="text-yeng-pink-500 border-yeng-pink-500 font-raleway border-2 p-8 py-2 rounded-full">
                         Cancel
                     </button>
                 </form>

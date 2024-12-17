@@ -43,7 +43,7 @@
                 <form action="{{ route('yoga-sessions.accept', $session->id) }}" method="POST">
                     @csrf
                     @method('PATCH')
-                    <button type="submit" class="bg-yeng-pink-500 text-white px-8 py-2 rounded-full">
+                    <button type="submit" class="bg-yeng-pink-500 font-raleway font-bold text-white px-8 py-2 rounded-full">
                         Accept
                     </button>
                 </form>

@@ -16,4 +16,13 @@ class InstructorListController extends Controller
         $instructors = Instructor::all();
         return view('instructor-list', compact('instructors'));
     }
+
+    public function show($id)
+    {
+        // Fetch the instructor details by ID
+        $instructor = Instructor::findOrFail($id);
+
+        // Pass the instructor details to the view
+        return view('instructor-detail', compact('instructor'));
+    }
 }

@@ -46,7 +46,7 @@
                     <form action="{{ route('user.yoga-sessions.cancel', $upcomingSession->id) }}" method="POST">
                         @csrf
                         @method('PATCH')
-                        <button class="text-yeng-pink-500 border-yeng-pink-500 border-2 p-8 py-2 rounded-full">Cancel</button>
+                        <button class="text-yeng-pink-500 border-yeng-pink-500 border-2 p-8 py-2 rounded-full font-raleway">Cancel</button>
                     </form>
                     <!-- <a href="{{ route('yoga-sessions.edit', $upcomingSession->id) }} class="bg-yeng-pink-500 p-3 py-2 ml-2 rounded-full"">
                         <button class="bg-yeng-pink-500 p-3 py-2 ml-2 rounded-full">
@@ -61,7 +61,7 @@
     @endif
 
     <!-- Title Div -->
-    <div class="flex justify-between font-raleway font-bold mt-4">
+    <div class="flex justify-between items-center font-raleway font-bold mt-4">
         <h1 class="text-xl">Instructors Nearby</h1>
         <a href="{{ route('instructor-list') }}">
             <p class="text-yeng-pink-500 text-sm">VIEW ALL</p>
@@ -73,31 +73,34 @@
     @else
         <!-- Instructors Grid -->
         <div class="grid grid-cols-2 gap-4 mt-4">
-    @foreach ($instructors as $instructor)
-        <div class="bg-white p-6 py-4 rounded-lg shadow-lg border-yeng-pink-500 border-2">
-            <!-- Profile Circle -->
-            <div class="flex-shrink-0 h-20 w-20 mx-auto rounded-full overflow-hidden bg-gray-200">
-                @if($instructor->profile_picture)
-                    <img src="{{ asset('storage/' . $instructor->profile_picture) }}" alt="{{ $instructor->name }}" class="h-full w-full object-cover">
-                @else
-                    <div class="bg-gray-200 text-yeng-pink-500 flex items-center justify-center h-full w-full font-bold uppercase">
-                        {{ strtoupper(substr($instructor->name, 0, 1)) }}
-                    </div>
-                @endif
-            </div>
+            @foreach ($instructors as $instructor)
+                <a href="{{ route('instructors.show', ['id' => $instructor->id]) }}" class="block">
+                    <div class="bg-white p-6 py-4 rounded-lg shadow-lg border-yeng-pink-500 border-2 hover:shadow-2xl transition-shadow">
+                        <!-- Profile Circle -->
+                        <div class="flex-shrink-0 h-20 w-20 mx-auto rounded-full overflow-hidden bg-gray-200">
+                            @if($instructor->profile_picture)
+                                <img src="{{ asset('storage/' . $instructor->profile_picture) }}" alt="{{ $instructor->name }}" class="h-full w-full object-cover">
+                            @else
+                                <div class="bg-gray-200 text-yeng-pink-500 flex items-center justify-center h-full w-full font-bold uppercase">
+                                    {{ strtoupper(substr($instructor->name, 0, 1)) }}
+                                </div>
+                            @endif
+                        </div>
 
-            <!-- Instructor Details -->
-            <div class="text-center mt-4">
-                <h2 class="text-lg font-bold text-gray-900">{{ $instructor->name }}</h2>
-                <h2 class="text-sm font-bold @if(strtolower($instructor->gender) == 'male') text-blue-400 @elseif(strtolower($instructor->gender) == 'female') text-pink-400 @else text-green-400 @endif">
-                    {{ ucfirst($instructor->gender) }}
-                </h2>
-                <h2 class="text-sm font-bold text-gray-500 mt-1">⚲ {{ $instructor->city }}</h2>
-            </div>
+                        <!-- Instructor Details -->
+                        <div class="text-center mt-4">
+                            <h2 class="text-lg font-bold text-gray-900">{{ $instructor->name }}</h2>
+                            <h2 class="text-sm font-bold @if(strtolower($instructor->gender) == 'male') text-blue-400 @elseif(strtolower($instructor->gender) == 'female') text-pink-400 @else text-green-400 @endif">
+                                {{ ucfirst($instructor->gender) }}
+                            </h2>
+                            <h2 class="text-sm font-bold text-gray-500 mt-1">⚲ {{ $instructor->city }}</h2>
+                        </div>
+                    </div>
+                </a>
+            @endforeach
         </div>
-    @endforeach
-</div>
     @endif
+
 
 
     

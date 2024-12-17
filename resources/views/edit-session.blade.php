@@ -88,7 +88,7 @@
     <div class="flex justify-center">
         <button 
             type="submit" 
-            class="bg-yeng-pink-500 px-6 py-2 text-white font-bold rounded-full">
+            class="bg-yeng-pink-500 px-6 py-2 text-white font-raleway font-bold rounded-full">
             Update
         </button>
     </div>

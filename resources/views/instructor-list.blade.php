@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="flex text-sm font-bold mt-4 justify-end">
-            <button class="text-white border-yeng-pink-500 bg-yeng-pink-500 border-2 p-8 py-2 ml-2 rounded-full" onclick="window.location.href='{{ route('booking', ['instructor_name' => $instructor->name, 'instructor_id' => $instructor->id]) }}'">
+            <button class="font-raleway text-white border-yeng-pink-500 bg-yeng-pink-500 border-2 p-8 py-2 ml-2 rounded-full" onclick="window.location.href='{{ route('booking', ['instructor_name' => $instructor->name, 'instructor_id' => $instructor->id]) }}'">
                 Book
             </button>
         </div>

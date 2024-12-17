@@ -118,7 +118,7 @@
         </div>
 
         <div class="mt-8 flex justify-center">
-            <button type="submit" class="bg-yeng-pink-500 text-white font-bold px-8 py-2 rounded-full">
+            <button type="submit" class="bg-yeng-pink-500 text-white font-raleway font-bold px-8 py-2 rounded-full">
                 Save Changes
             </button>
         </div>

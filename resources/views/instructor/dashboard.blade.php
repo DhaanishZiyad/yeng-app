@@ -46,7 +46,7 @@
                     <form action="{{ route('instructor.yoga-sessions.cancel', $upcomingSession->id) }}" method="POST">
                             @csrf
                             @method('PATCH')
-                        <button class="text-yeng-pink-500 border-yeng-pink-500 border-2 p-8 py-2 rounded-full">Cancel</button>
+                        <button class="text-yeng-pink-500 font-raleway border-yeng-pink-500 border-2 p-8 py-2 rounded-full">Cancel</button>
                     </form>
                 </div>
             </a>
@@ -56,9 +56,11 @@
     @endif
 
     <!-- Title Div -->
-    <div class="flex justify-between font-raleway font-bold mt-4">
+    <div class="flex justify-between items-center font-raleway font-bold mt-4">
         <h1 class="text-xl">Recieved Requests</h1>
-        <p class="text-yeng-pink-500 text-sm">VIEW ALL</p>
+        <a href="{{ route('instructor.requests') }}">
+            <p class="text-yeng-pink-500 text-sm">VIEW ALL</p>
+        </a>
     </div>
 
     @if($pendingSessions->isNotEmpty())
@@ -90,14 +92,14 @@
                     <form action="{{ route('yoga-sessions.decline', $session->id) }}" method="POST">
                         @csrf
                         @method('PATCH')
-                        <button type="submit" class="text-yeng-pink-500 border-yeng-pink-500 border-2 px-8 py-2 rounded-full mr-2">
+                        <button type="submit" class="text-yeng-pink-500 border-yeng-pink-500 border-2 px-8 py-2 rounded-full mr-2 font-raleway">
                             Decline
                         </button>
                     </form>
                     <form action="{{ route('yoga-sessions.accept', $session->id) }}" method="POST">
                         @csrf
                         @method('PATCH')
-                        <button type="submit" class="bg-yeng-pink-500 text-white px-8 py-2 rounded-full">
+                        <button type="submit" class="bg-yeng-pink-500 text-white px-8 py-2 rounded-full font-raleway">
                             Accept
                         </button>
                     </form>
