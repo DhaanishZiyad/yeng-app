@@ -89,8 +89,8 @@
 
                         <!-- Instructor Details -->
                         <div class="text-center mt-4">
-                            <h2 class="text-lg font-bold text-gray-900">{{ $instructor->name }}</h2>
-                            <h2 class="text-sm font-bold @if(strtolower($instructor->gender) == 'male') text-blue-400 @elseif(strtolower($instructor->gender) == 'female') text-pink-400 @else text-green-400 @endif">
+                        <h2 class="text-lg font-bold text-gray-900 truncate overflow-hidden whitespace-nowrap">{{ $instructor->name }}</h2>
+                        <h2 class="text-sm font-bold @if(strtolower($instructor->gender) == 'male') text-blue-400 @elseif(strtolower($instructor->gender) == 'female') text-pink-400 @else text-green-400 @endif">
                                 {{ ucfirst($instructor->gender) }}
                             </h2>
                             <h2 class="text-sm font-bold text-gray-500 mt-1">⚲ {{ $instructor->city }}</h2>
