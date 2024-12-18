@@ -22,6 +22,12 @@ Route::prefix('instructor')->middleware('auth:instructor')->group(function () {
 
     Route::patch('/yoga-sessions/{id}/cancel', [YogaSessionController::class, 'cancel'])
         ->name('instructor.yoga-sessions.cancel');
+    
+    Route::patch('/yoga-sessions/{id}/start', [YogaSessionController::class, 'start'])
+        ->name('instructor.yoga-sessions.start');
+    
+    Route::patch('/yoga-sessions/{id}/complete', [YogaSessionController::class, 'complete'])
+        ->name('instructor.yoga-sessions.complete');
 
     Route::get('/requests', [RequestsController::class, 'index'])
         ->name('instructor.requests');

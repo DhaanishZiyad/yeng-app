@@ -9,7 +9,7 @@
         <h1 class="text-xl">Book a Session</h1>
     </div>
 
-        <!-- Success Message -->
+    <!-- Success Message -->
     @if(session('success'))
         <div class="bg-green-500 text-white p-2 rounded mb-4">
             {{ session('success') }}

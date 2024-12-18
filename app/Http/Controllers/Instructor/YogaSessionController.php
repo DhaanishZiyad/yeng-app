@@ -58,6 +58,37 @@ class YogaSessionController extends Controller
         return redirect()->route('instructor.dashboard')->with('success', 'Session successfully canceled.');
     }
 
+    public function start($id)
+    {
+        // Fetch the session
+        $session = YogaSession::findOrFail($id);
+
+        // Update the session status to 'active'
+        $session->status = 'active';
+        $session->save();
+
+        // Redirect back with success message
+        return redirect()->back()->with('success', 'Session has been started and marked as active.');
+    }
+
+    public function complete(Request $request, $id)
+    {
+        // Fetch the session by ID
+        $session = YogaSession::where('id', $id)
+            ->where('instructor_id', auth()->id())
+            ->where('status', 'active')
+            ->firstOrFail();
+
+        // Update the session status to 'completed'
+        $session->update([
+            'status' => 'completed',
+            //'completed_at' => now(), // Optional: Track when the session was completed
+        ]);
+
+        return redirect()->route('instructor.dashboard')->with('success', 'Session marked as completed.');
+    }
+
+
     public function show($id)
     {
         $session = YogaSession::findOrFail($id); // Fetch session details by ID

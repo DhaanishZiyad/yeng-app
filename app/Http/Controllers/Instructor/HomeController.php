@@ -16,7 +16,7 @@ class HomeController extends Controller
             ->get();
 
         $acceptedSessions = YogaSession::where('instructor_id', auth()->id())
-            ->where('status', 'accepted')
+            ->whereIn('status', ['accepted', 'active']) 
             ->get();
 
         return view('instructor.dashboard', compact('pendingSessions', 'acceptedSessions'));

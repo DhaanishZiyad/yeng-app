@@ -2,6 +2,13 @@
 
 @section('content')
 
+    @if (session('success'))
+        <div id="success-message" 
+             class="bg-green-100 text-green-800 font-bold px-4 py-3 rounded-lg shadow-lg mb-4">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <!-- Title Div -->
     <div class="flex justify-between font-raleway font-bold">
         <h1 class="text-xl">Upcoming Sessions</h1>
@@ -31,9 +38,11 @@
                 <!-- Date -->
                 <div class="flex text-sm font-bold mt-2 justify-between">
                     <p class="text-gray-400">{{ \Carbon\Carbon::parse($upcomingSession->date)->format('l, jS F') }}</p>
-                    <span class="bg-green-100 text-green-800 text-xs font-semibold px-4 py-1 rounded-full">
-                        Accepted
-                    </span>
+                    <span class="text-xs font-semibold px-4 py-1 rounded-full 
+                    {{ $upcomingSession->status === 'accepted' ? 'bg-green-100 text-green-800' : 
+                        ($upcomingSession->status === 'active' ? 'bg-purple-100 text-purple-800' : '') }}">
+                    {{ ucfirst($upcomingSession->status) }}
+                </span>
                 </div>
 
                 <!-- Location -->
@@ -101,8 +110,18 @@
         </div>
     @endif
 
-
-
-    
+    <script>
+        // Automatically hide the success message after 5 seconds
+        document.addEventListener('DOMContentLoaded', () => {
+            const successMessage = document.getElementById('success-message');
+            if (successMessage) {
+                setTimeout(() => {
+                    successMessage.style.transition = "opacity 0.5s ease-in-out";
+                    successMessage.style.opacity = "0";
+                    setTimeout(() => successMessage.remove(), 500); // Remove element after fade-out
+                }, 3000); // 5 seconds
+            }
+        });
+    </script>
 
 @endsection

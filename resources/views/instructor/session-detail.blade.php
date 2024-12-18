@@ -45,18 +45,40 @@
             <div>
                 <span class="text-xs font-semibold px-4 py-1 rounded-full 
                     {{ $session->status === 'accepted' ? 'bg-green-100 text-green-800' : 
-                       ($session->status === 'declined' ? 'bg-red-100 text-red-800' : 
-                       ($session->status === 'pending' ? 'bg-yellow-100 text-yellow-800' : 
-                       ($session->status === 'cancelled' ? 'bg-gray-200 text-gray-800' : 
-                       ($session->status === 'completed' ? 'bg-blue-200 text-blue-800' : '')))) }}">
+                        ($session->status === 'declined' ? 'bg-red-100 text-red-800' : 
+                        ($session->status === 'pending' ? 'bg-yellow-100 text-yellow-800' : 
+                        ($session->status === 'active' ? 'bg-purple-100 text-purple-800' :
+                        ($session->status === 'cancelled' ? 'bg-gray-200 text-gray-800' : 
+                        ($session->status === 'completed' ? 'bg-blue-200 text-blue-800' : ''))))) }}">
                     {{ ucfirst($session->status) }}
                 </span>
             </div>
         </div>
 
         <!-- Buttons -->
-        @if (in_array($session->status, ['pending', 'accepted']))
+        @if (in_array($session->status, ['pending', 'accepted','active']))
             <div class="flex text-sm font-bold justify-end mt-4">
+                <!-- Start Session Button -->
+                @if ($session->status === 'accepted')
+                    <form action="{{ route('instructor.yoga-sessions.start', $session->id) }}" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <button class="text-white bg-yeng-pink-500 font-raleway border-2 p-8 py-2 mr-2 rounded-full">
+                            Start
+                        </button>
+                    </form>
+                @endif
+
+                <!-- Complete Session Button -->
+                @if ($session->status === 'active')
+                    <form action="{{ route('instructor.yoga-sessions.complete', $session->id) }}" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <button class="text-white bg-yeng-pink-500 font-raleway border-2 p-8 py-2 mr-2 rounded-full">
+                            Complete
+                        </button>
+                    </form>
+                @endif
                 <!-- Cancel Button -->
                 <form action="{{ route('instructor.yoga-sessions.cancel', $session->id) }}" method="POST">
                     @csrf
