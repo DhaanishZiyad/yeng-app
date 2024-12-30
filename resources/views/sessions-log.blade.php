@@ -24,7 +24,10 @@
                 <!-- Instructor and Time -->
                 <div class="flex justify-between text-lg font-bold">
                     <p>{{ $session->instructor->name ?? 'N/A' }}</p>
-                    <p>{{ \Carbon\Carbon::parse($session->time)->format('H:i') }}</p>
+                    <p>
+                        {{ \Carbon\Carbon::parse($session->time)->format('H:i') }} - 
+                        {{ \Carbon\Carbon::parse($session->time)->addHour()->format('H:i') }}
+                    </p>
                 </div>
 
                 <!-- Date and Status -->
@@ -51,7 +54,10 @@
             <!-- Instructor and Time -->
                 <div class="flex justify-between text-lg font-bold">
                     <p>{{ $session->instructor->name ?? 'N/A' }}</p>
-                    <p>{{ \Carbon\Carbon::parse($session->time)->format('H:i') }}</p>
+                    <p>
+                        {{ \Carbon\Carbon::parse($session->time)->format('H:i') }} - 
+                        {{ \Carbon\Carbon::parse($session->time)->addHour()->format('H:i') }}
+                    </p>
                 </div>
 
                 <!-- Date and Status -->
@@ -83,7 +89,10 @@
                 <!-- Instructor and Time -->
                 <div class="flex justify-between text-lg font-bold">
                     <p>{{ $session->instructor->name ?? 'N/A' }}</p>
-                    <p>{{ \Carbon\Carbon::parse($session->time)->format('H:i') }}</p>
+                    <p>
+                        {{ \Carbon\Carbon::parse($session->time)->format('H:i') }} - 
+                        {{ \Carbon\Carbon::parse($session->time)->addHour()->format('H:i') }}
+                    </p>
                 </div>
 
                 <!-- Date and Status -->
@@ -115,7 +124,10 @@
                 <!-- Instructor and Time -->
                 <div class="flex justify-between text-lg font-bold">
                     <p>{{ $session->instructor->name ?? 'N/A' }}</p>
-                    <p>{{ \Carbon\Carbon::parse($session->time)->format('H:i') }}</p>
+                    <p>
+                        {{ \Carbon\Carbon::parse($session->time)->format('H:i') }} - 
+                        {{ \Carbon\Carbon::parse($session->time)->addHour()->format('H:i') }}
+                    </p>
                 </div>
 
                 <!-- Date and Status -->
@@ -142,7 +154,10 @@
                 <!-- Instructor and Time -->
                 <div class="flex justify-between text-lg font-bold">
                     <p>{{ $session->instructor->name ?? 'N/A' }}</p>
-                    <p>{{ \Carbon\Carbon::parse($session->time)->format('H:i') }}</p>
+                    <p>
+                        {{ \Carbon\Carbon::parse($session->time)->format('H:i') }} - 
+                        {{ \Carbon\Carbon::parse($session->time)->addHour()->format('H:i') }}
+                    </p>
                 </div>
 
                 <!-- Date and Status -->

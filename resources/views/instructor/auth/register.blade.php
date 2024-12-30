@@ -15,7 +15,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="h-screen flex flex-col justify-center items-center bg-gray-100">
-    <div class="flex flex-row w-screen justify-center items-center">
+    <div class="flex flex-row w-screen justify-center items-center mt-72">
         <img src="/images/yeng_logo.svg" alt="">
     </div>
     <div class="flex flex-row w-screen justify-center items-center mt-4">
@@ -113,6 +113,30 @@
                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
             </div>
 
+            <!-- Availability -->
+            <div>
+                <label for="availability" class="block font-medium text-sm text-gray-700">Availability</label>
+                <div id="availability-wrapper" class="mt-2">
+                    <div class="availability-item flex gap-2 mb-2">
+                        <select name="availability[0][day_of_week]" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yeng-pink-400 focus:border-yeng-pink-400 text-sm bg-white text-black" required>
+                            <option value="" disabled selected>Day</option>
+                            <option value="Monday">Monday</option>
+                            <option value="Tuesday">Tuesday</option>
+                            <option value="Wednesday">Wednesday</option>
+                            <option value="Thursday">Thursday</option>
+                            <option value="Friday">Friday</option>
+                            <option value="Saturday">Saturday</option>
+                            <option value="Sunday">Sunday</option>
+                        </select>
+                        <input type="time" name="availability[0][start_time]" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yeng-pink-400 focus:border-yeng-pink-400 text-sm bg-white text-black" required />
+                        <input type="time" name="availability[0][end_time]" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yeng-pink-400 focus:border-yeng-pink-400 text-sm bg-white text-black" required />
+                    </div>
+                </div>
+                <button type="button" id="add-availability" class="flex justify-center items-center mt-4 px-4 py-2 w-full bg-yeng-pink-300 text-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-yeng-pink-400 focus:ring-offset-2">
+                    <img src="/images/Plus.svg" alt="" class="h-6 w-6">
+                </button>
+            </div>
+
             <div class="flex items-center justify-end mt-1">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
@@ -124,5 +148,29 @@
             </div>
         </form>
     </div>
+
+    <script>
+        document.getElementById('add-availability').addEventListener('click', function () {
+            const wrapper = document.getElementById('availability-wrapper');
+            const index = wrapper.children.length;
+            const item = document.createElement('div');
+            item.classList.add('availability-item', 'flex', 'gap-2', 'mb-2');
+            item.innerHTML = `
+                <select name="availability[${index}][day_of_week]" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yeng-pink-400 focus:border-yeng-pink-400 text-sm bg-white text-black" required>
+                    <option value="" disabled selected>Day</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                    <option value="Sunday">Sunday</option>
+                </select>
+                <input type="time" name="availability[${index}][start_time]" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yeng-pink-400 focus:border-yeng-pink-400 text-sm bg-white text-black" required />
+                <input type="time" name="availability[${index}][end_time]" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yeng-pink-400 focus:border-yeng-pink-400 text-sm bg-white text-black" required />
+            `;
+            wrapper.appendChild(item);
+        });
+    </script>
 </body>
 </html>

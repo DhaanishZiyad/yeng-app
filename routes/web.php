@@ -5,6 +5,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InstructorListController;
 use App\Http\Controllers\YogaSessionController;
+use App\Http\Controllers\Instructor\AvailabilityController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,6 +23,9 @@ Route::get('/dashboard', [HomeController::class, 'index'])
 Route::get('/booking', [YogaSessionController::class, 'create'])
     ->middleware(['auth', 'verified'])
     ->name('booking');
+
+Route::post('/get-available-times', [AvailabilityController::class, 'getAvailableTimes'])
+    ->name('get-available-times');
 
 Route::post('/yoga-sessions', [YogaSessionController::class, 'store'])
     ->middleware(['auth', 'verified'])

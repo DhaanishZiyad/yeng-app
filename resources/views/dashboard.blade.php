@@ -32,7 +32,10 @@
                 </div>
                 <div class="flex text-lg font-bold justify-between">
                     <p>{{ $upcomingSession->instructor->name ?? 'N/A' }}</p>
-                    <p>{{ \Carbon\Carbon::parse($upcomingSession->time)->format('H:i') }}</p>
+                    <p>
+                        {{ \Carbon\Carbon::parse($upcomingSession->time)->format('H:i') }} - 
+                        {{ \Carbon\Carbon::parse($upcomingSession->time)->addHour()->format('H:i') }}
+                    </p>
                 </div>
 
                 <!-- Date -->

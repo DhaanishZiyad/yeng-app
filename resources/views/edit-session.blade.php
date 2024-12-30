@@ -5,7 +5,7 @@
 <!-- Title Div -->
 <div class="mb-8 flex items-center">
     <a href="{{ route('sessions-log') }}">
-        <img src="/images/left arrow.svg" alt="Profile" class="h-8 w-8">
+        <img src="/images/left arrow.svg" alt="Back" class="h-8 w-8">
     </a>
     <h1 class="text-xl font-bold font-raleway ml-2">Edit Session</h1>
 </div>
@@ -14,7 +14,8 @@
     @csrf
     @method('PUT')
 
-    <input type="hidden" name="instructor_id" value="{{ old('instructor_id', $instructorId) }}">
+    <input type="hidden" name="instructor_id" value="{{ old('instructor_id', $session->instructor_id) }}">
+    <input type="hidden" name="status" value="pending">
 
     <!-- Instructor -->
     <div class="mb-4">
@@ -37,7 +38,7 @@
             id="location" 
             name="location" 
             class="block w-full px-4 py-2 border rounded-md text-gray-900 font-bold" 
-            value="{{ old('location', $location) }}" 
+            value="{{ old('location', $session->location) }}" 
         >
         @error('location') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
     </div>
@@ -64,24 +65,20 @@
             name="time" 
             class="block w-full px-4 py-2 border rounded-md text-gray-900 font-bold"
         >
-            @php
-                $startHour = 6; $endHour = 16; $minutes = [0, 15, 30, 45];
-            @endphp
-            @for ($hour = $startHour; $hour <= $endHour; $hour++)
-                @foreach ($minutes as $minute)
-                    @php
-                        $formattedHour = $hour > 12 ? $hour - 12 : $hour;
-                        $ampm = $hour >= 12 ? 'PM' : 'AM';
-                        $formattedTime = sprintf('%02d:%02d', $hour, $minute);
-                        $displayTime = sprintf('%d:%02d %s', $formattedHour, $minute, $ampm);
-                    @endphp
-                    <option value="{{ $formattedTime }}" {{ $session->time == $formattedTime ? 'selected' : '' }}>
-                        {{ $displayTime }}
-                    </option>
-                @endforeach
-            @endfor
+            <!-- Default blank option -->
+            <option value="" disabled selected>Select a time</option>
+            <!-- Display available time slots -->
+            @foreach ($availableTimes as $time)
+                <option 
+                    value="{{ $time['start_time'] }}" 
+                    {{ old('time', $session->time) == $time['start_time'] ? 'selected' : '' }}>
+                    {{ $time['start_time'] }} - {{ $time['end_time'] }}
+                </option>
+            @endforeach
         </select>
-        @error('time') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
+        @error('time') 
+            <p class="text-red-500 text-sm">{{ $message }}</p> 
+        @enderror
     </div>
 
     <!-- Submit Button -->
@@ -93,5 +90,62 @@
         </button>
     </div>
 </form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const dateInput = document.getElementById('date');
+        const timeSelect = document.getElementById('time');
+        const instructorId = document.querySelector('input[name="instructor_id"]').value;
+
+        // Clear dropdown and add a default option on page load
+        timeSelect.innerHTML = '<option value="" disabled selected>Select a time</option>';
+
+        // Fetch available times dynamically based on date
+        dateInput.addEventListener('change', function () {
+            const selectedDate = dateInput.value;
+
+            if (!selectedDate || !instructorId) return;
+
+            // Clear dropdown and add a default option
+            timeSelect.innerHTML = '<option value="" disabled selected>Select a time</option>';
+
+            fetch('/get-available-times', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                },
+                body: JSON.stringify({
+                    instructor_id: instructorId,
+                    date: selectedDate
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.length === 0) {
+                    const noTimesOption = document.createElement('option');
+                    noTimesOption.textContent = "No times available";
+                    noTimesOption.disabled = true;
+                    timeSelect.appendChild(noTimesOption);
+                } else {
+                    data.forEach(time => {
+                        const option = document.createElement('option');
+                        option.value = time.start_time;
+                        option.textContent = `${time.start_time} - ${time.end_time}`;
+                        timeSelect.appendChild(option);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching available times:', error);
+                const errorOption = document.createElement('option');
+                errorOption.textContent = "Error loading times";
+                errorOption.disabled = true;
+                timeSelect.appendChild(errorOption);
+            });
+        });
+    });
+</script>
+
 
 @endsection

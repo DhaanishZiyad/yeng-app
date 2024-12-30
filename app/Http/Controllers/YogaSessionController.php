@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\YogaSession;
+use App\Models\Instructor;
+use App\Models\InstructorAvailability;
+use Carbon\Carbon;
 
 class YogaSessionController extends Controller
 {
@@ -69,28 +72,37 @@ class YogaSessionController extends Controller
 
     public function edit($id)
     {
-        // Fetch the session belonging to the user and check status
-        $session = YogaSession::where('id', $id)
-                              ->where('user_id', auth()->id())
-                              ->whereIn('status', ['pending', 'accepted'])
-                              ->firstOrFail();
+        $session = YogaSession::findOrFail($id);
+        $instructor = $session->instructor;
+        $instructorName = $instructor->name;
+        // $availableTimes = InstructorAvailability::where('instructor_id', $session->instructor_id)
+        //     ->whereDate('day_of_week', $session->date)
+        //     ->get()
+        //     ->toArray();
+        $dayOfWeek = Carbon::parse($session->date)->format('l');
+        $availableTimes = InstructorAvailability::where('instructor_id', $session->instructor_id)
+        ->where('day_of_week', $dayOfWeek)
+        ->get()
+        ->toArray();
 
-        // Pass session data to the view
-        return view('edit-session', [
-            'session' => $session,
-            'instructorName' => $session->instructor->name ?? 'N/A',
-            'instructorId' => $session->instructor_id,
-            'location' => $session->location,
-        ]);
+        // Add the session's existing time if not in availableTimes
+        if (!in_array($session->time, array_column($availableTimes, 'start_time'))) {
+            $availableTimes[] = [
+                'start_time' => $session->time,
+                'end_time' => Carbon::parse($session->time)->addHour()->format('H:i'),
+            ];
+        }
+
+        return view('edit-session', compact('session', 'instructorName', 'availableTimes'));
     }
 
     public function update(Request $request, $id)
     {
         // Validate the form data
         $request->validate([
-            'date' => 'required|date',
-            'time' => 'required',
-            'location' => 'required|string',
+            'date' => 'required|date|after_or_equal:today',
+            'time' => 'required|date_format:H:i',
+            'location' => 'required|string|max:255',
         ]);
 
         // Fetch the session and check if it can be updated
@@ -101,10 +113,10 @@ class YogaSessionController extends Controller
 
         // Update the session details
         $session->update([
-            'date' => $request->input('date'),
-            'time' => $request->input('time'),
-            'location' => $request->input('location'),
-            'status' => 'pending', // Reset the status to pending
+            'location' => $request->location,
+            'date' => $request->date,
+            'time' => $request->time,
+            'status' => 'pending', // Reset status to pending
         ]);
 
         return redirect()->route('sessions-log')->with('success', 'Session updated successfully.');

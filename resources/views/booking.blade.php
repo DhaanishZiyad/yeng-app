@@ -1,5 +1,3 @@
-
-
 @extends('layouts.app')
 
 @section('content')
@@ -45,7 +43,6 @@
                 class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yeng-pink-500 text-gray-900 font-bold"
                 placeholder="Your address"
                 value="{{ old('location', $location) }}"
-                readonly
             >
             <x-input-error :messages="$errors->get('location')" class="mt-2" />
         </div>
@@ -83,29 +80,62 @@
     </form>
 
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const timeSelect = document.getElementById('time');
-        const startHour = 6; // 6:00 AM
-        const endHour = 16; // 4:00 PM
-        const minuteOptions = [0, 15, 30, 45]; // Allowed minutes
-
-        for (let hour = startHour; hour <= endHour; hour++) {
-            // For the last hour (4:00 PM), only include '00' minutes
-            const minutesToAdd = hour === endHour ? [0] : minuteOptions;
-
-            for (const minutes of minutesToAdd) {
-                const ampm = hour >= 12 ? 'PM' : 'AM';
-                const formattedHour = hour > 12 ? hour - 12 : hour;
-                const formattedMinutes = minutes.toString().padStart(2, '0');
-                const formattedTime = `${formattedHour}:${formattedMinutes} ${ampm}`;
-
-                const option = document.createElement('option');
-                option.value = `${hour.toString().padStart(2, '0')}:${formattedMinutes}`;
-                option.textContent = formattedTime;
-                timeSelect.appendChild(option);
-            }
-        }
-    });
-</script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const dateInput = document.getElementById('date');
+            const timeSelect = document.getElementById('time');
+            const instructorId = document.querySelector('input[name="instructor_id"]').value;
+        
+            // Clear dropdown and add a default option on page load
+            timeSelect.innerHTML = '<option value="" disabled selected>Select a time</option>';
+        
+            dateInput.addEventListener('change', function () {
+                const selectedDate = dateInput.value;
+            
+                if (!selectedDate || !instructorId) return;
+            
+                // Clear dropdown and add a default option
+                timeSelect.innerHTML = '<option value="" disabled selected>Select a time</option>';
+            
+                // Fetch available times dynamically
+                fetch('/get-available-times', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: JSON.stringify({
+                        instructor_id: instructorId,
+                        date: selectedDate
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data); // Log response for debugging
+                    if (data.length === 0) {
+                        // No available times
+                        const noTimesOption = document.createElement('option');
+                        noTimesOption.textContent = "No times available";
+                        noTimesOption.disabled = true;
+                        timeSelect.appendChild(noTimesOption);
+                    } else {
+                        // Populate available times
+                        data.forEach(time => {
+                            const option = document.createElement('option');
+                            option.value = time.start_time;
+                            option.textContent = `${time.start_time} - ${time.end_time}`;
+                            timeSelect.appendChild(option);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching available times:', error);
+                    const errorOption = document.createElement('option');
+                    errorOption.textContent = "Error loading times";
+                    errorOption.disabled = true;
+                    timeSelect.appendChild(errorOption);
+                });
+            });
+        });
+    </script>
 
 @endsection

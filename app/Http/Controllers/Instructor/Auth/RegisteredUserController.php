@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use App\Models\InstructorAvailability;
 
 class RegisteredUserController extends Controller
 {
@@ -37,6 +38,11 @@ class RegisteredUserController extends Controller
             'city' => ['required', 'string', 'max:255'],
             'dob' => ['required', 'date', 'before:today'],
             'gender' => ['required', 'in:male,female,other'],
+
+            'availability' => ['required', 'array', 'min:1'],
+            'availability.*.day_of_week' => ['required', 'string', 'in:Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday'],
+            'availability.*.start_time' => ['required', 'date_format:H:i'],
+            'availability.*.end_time' => ['required', 'date_format:H:i', 'after:availability.*.start_time'],
         ]);
 
         $instructor = Instructor::create([
@@ -49,10 +55,19 @@ class RegisteredUserController extends Controller
             'gender' => $request->gender,
         ]);
 
+        foreach ($request->availability as $availability) {
+            InstructorAvailability::create([
+                'instructor_id' => $instructor->id,
+                'day_of_week' => $availability['day_of_week'],
+                'start_time' => $availability['start_time'],
+                'end_time' => $availability['end_time'],
+            ]);
+        }
+
         event(new Registered($instructor));
 
         Auth::guard('instructor')->login($instructor);
 
-        return redirect(route('instructor.dashboard', absolute: false));
+        return redirect()->route('instructor.dashboard');
     }
 }

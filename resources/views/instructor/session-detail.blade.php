@@ -18,7 +18,10 @@
             </div>
             <div>
                 <p class="text-gray-400 font-bold text-sm">Time</p>
-                <p class="text-lg">{{ \Carbon\Carbon::parse($session->time)->format('H:i') }}</p>
+                <p class="text-lg">
+                        {{ \Carbon\Carbon::parse($session->time)->format('H:i') }} -
+                        {{ \Carbon\Carbon::parse($session->time)->addHour()->format('H:i') }}
+                </p>
             </div>
         </div>
 
