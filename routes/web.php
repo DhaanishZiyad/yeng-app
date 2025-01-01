@@ -6,7 +6,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InstructorListController;
 use App\Http\Controllers\YogaSessionController;
 use App\Http\Controllers\Instructor\AvailabilityController;
+use App\Http\Controllers\StoreController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use App\Http\Middleware\AdminMiddleware;
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,6 +19,8 @@ Route::get('/', function () {
 Route::get('/instructor', function () {
     return view('instructor-welcome'); // Instructor page
 });
+
+// User Routes
 
 Route::get('/dashboard', [HomeController::class, 'index'])
     ->middleware(['auth', 'verified'])
@@ -78,6 +84,46 @@ Route::get('/profile/edit', [ProfileController::class, 'edit'])
 Route::patch('/profile', [ProfileController::class, 'update'])
     ->middleware(['auth', 'verified'])
     ->name('profile.update');
+
+Route::get('/store/home', [StoreController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('store.homepage');
+
+// Admin Routes
+
+Route::middleware([AdminMiddleware::class])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])
+        ->name('admin.dashboard');
+
+    Route::get('/admin/users', [AdminController::class, 'users'])
+        ->name('admin.users');
+
+    Route::delete('/admin/users/{id}', [AdminController::class, 'destroy'])
+        ->name('admin.users.destroy');
+    
+    Route::delete('/admin/instructors/{id}', [AdminController::class, 'destroyInstructor'])
+        ->name('admin.instructors.destroy');
+
+    Route::get('/admin/products', [ProductController::class, 'index'])
+        ->name('admin.products');
+
+    Route::get('/admin/products/create', [ProductController::class, 'create'])
+        ->name('products.create');
+
+    Route::post('/admin/products/store', [ProductController::class, 'store'])
+        ->name('products.store');
+
+    Route::get('/products/{id}/edit', [ProductController::class, 'edit'])
+        ->name('products.edit');
+
+    Route::put('/products/{id}', [ProductController::class, 'update'])
+        ->name('products.update');
+
+    Route::delete('/products/{id}', [ProductController::class, 'destroy'])
+        ->name('products.destroy');
+
+
+});
 
 require __DIR__.'/instructor-web.php';
 

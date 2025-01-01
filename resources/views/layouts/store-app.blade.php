@@ -38,17 +38,17 @@
     </div>
 
     <!-- Bottom Nav -->
-    <div class="fixed bottom-0 left-0 right-0 bg-yeng-pink-500 shadow-lg p-2 m-6 flex justify-between items-center border-t border-gray-200 z-50 rounded-full">
-        <a href="{{ route('dashboard') }}" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('dashboard') ? 'bg-yeng-pink-300' : '' }}">
+    <div class="fixed bottom-0 left-0 right-0 bg-yeng-green-500 shadow-lg p-2 m-6 flex justify-between items-center border-t border-gray-200 z-50 rounded-full">
+        <a href="{{ route('store.homepage') }}" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('store.homepage') ? 'bg-yeng-green-300' : '' }}">
             <img src="/images/House.svg" alt="Home" class="h-8 w-8">
         </a>
-        <a href="{{ route('booking') }}" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('booking') ? 'bg-yeng-pink-300' : '' }}">
-            <img src="/images/Plus.svg" alt="Home" class="h-8 w-8">
+        <a href="#" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('booking') ? 'bg-yeng-green-300' : '' }}">
+            <img src="/images/Plus.svg" alt="Booking" class="h-8 w-8">
         </a>
-        <a href="{{ route('sessions-log') }}" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('sessions-log') ? 'bg-yeng-pink-300' : '' }}">
+        <a href="#" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('sessions-log') ? 'bg-yeng-green-300' : '' }}">
             <img src="/images/calendar.svg" alt="Sessions" class="h-8 w-8">
         </a>
-        <a href="{{ route('profile') }}" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('profile') ? 'bg-yeng-pink-300' : '' }}">
+        <a href="#" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('profile') ? 'bg-yeng-green-300' : '' }}">
             <img src="/images/account.svg" alt="Profile" class="h-8 w-8">
         </a>
     </div>
@@ -63,25 +63,25 @@
 
             // Reset underline styles and remove 'bg-black' from both buttons
             sessionsUnderline.classList.remove('bg-yeng-pink-500');
-            storeUnderline.classList.remove('bg-yeng-green-500');
+            storeUnderline.classList.remove('bg-green-500');
 
             // Show the content and apply pink underline to the selected button
             if (selected === 'sessions') {
                 sessionsUnderline.classList.add('bg-yeng-pink-500');
             } else {
-                storeUnderline.classList.add('bg-yeng-green-500');
+                storeUnderline.classList.add('bg-green-500');
             }
         }
         // Initialize with 'sessions' selected
-        toggleTopNav('sessions');
+        toggleTopNav('store');
 
         // Bottom Nav toggle
         function highlightButton(button) {
             // Remove 'selected' class from all buttons
-            document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('bg-yeng-pink-300'));
+            document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('bg-yeng-green-300'));
 
             // Add 'selected' class to the clicked button
-            button.classList.add('bg-yeng-pink-300');
+            button.classList.add('bg-yeng-green-300');
         }
     </script>
 </body>

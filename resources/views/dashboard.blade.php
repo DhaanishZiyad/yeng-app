@@ -2,7 +2,7 @@
 
 @section('content')
 
-    @if (session('success'))
+    @if(session('success'))
         <div id="success-message" 
              class="bg-green-100 text-green-800 font-bold px-4 py-3 rounded-lg shadow-lg mb-4">
             {{ session('success') }}
