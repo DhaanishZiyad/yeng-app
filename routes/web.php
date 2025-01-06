@@ -85,9 +85,23 @@ Route::patch('/profile', [ProfileController::class, 'update'])
     ->middleware(['auth', 'verified'])
     ->name('profile.update');
 
-Route::get('/store/home', [StoreController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('store.homepage');
+// Store Routes
+
+Route::prefix('store')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('cart', [StoreController::class, 'cart'])->name('store.cart');
+
+    Route::get('home', [StoreController::class, 'index'])->name('store.homepage');
+
+    Route::get('orders', [StoreController::class, 'orders'])->name('store.orders');
+
+    Route::get('wishlist', [StoreController::class, 'wishlist'])->name('store.wishlist');
+
+    Route::get('{id}', [StoreController::class, 'detail'])->name('store.product-detail');
+
+    Route::post('cart/{id}', [StoreController::class, 'addToCart'])->name('store.add-to-cart');
+
+    Route::post('checkout', [StoreController::class, 'checkout'])->name('store.checkout');
+});
 
 // Admin Routes
 
@@ -100,7 +114,7 @@ Route::middleware([AdminMiddleware::class])->group(function () {
 
     Route::delete('/admin/users/{id}', [AdminController::class, 'destroy'])
         ->name('admin.users.destroy');
-    
+
     Route::delete('/admin/instructors/{id}', [AdminController::class, 'destroyInstructor'])
         ->name('admin.instructors.destroy');
 
@@ -121,8 +135,6 @@ Route::middleware([AdminMiddleware::class])->group(function () {
 
     Route::delete('/products/{id}', [ProductController::class, 'destroy'])
         ->name('products.destroy');
-
-
 });
 
 require __DIR__.'/instructor-web.php';

@@ -14,6 +14,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    @livewireStyles
 </head>
 <body>
     <!-- Top Nav -->
@@ -42,14 +44,14 @@
         <a href="{{ route('store.homepage') }}" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('store.homepage') ? 'bg-yeng-green-300' : '' }}">
             <img src="/images/House.svg" alt="Home" class="h-8 w-8">
         </a>
-        <a href="#" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('booking') ? 'bg-yeng-green-300' : '' }}">
-            <img src="/images/Plus.svg" alt="Booking" class="h-8 w-8">
+        <a href="{{ route('store.wishlist') }}" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('store.wishlist') ? 'bg-yeng-green-300' : '' }}">
+            <img src="/images/heart.svg" alt="Booking" class="h-8 w-8">
         </a>
-        <a href="#" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('sessions-log') ? 'bg-yeng-green-300' : '' }}">
-            <img src="/images/calendar.svg" alt="Sessions" class="h-8 w-8">
+        <a href="{{ route('store.cart') }}" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('store.cart') ? 'bg-yeng-green-300' : '' }}">
+            <img src="/images/cart.svg" alt="Sessions" class="h-8 w-8">
         </a>
-        <a href="#" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('profile') ? 'bg-yeng-green-300' : '' }}">
-            <img src="/images/account.svg" alt="Profile" class="h-8 w-8">
+        <a href="{{ route('store.orders') }}" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('store.orders') ? 'bg-yeng-green-300' : '' }}">
+            <img src="/images/Invoice.svg" alt="Profile" class="h-8 w-8">
         </a>
     </div>
 
@@ -84,5 +86,8 @@
             button.classList.add('bg-yeng-green-300');
         }
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/livewire-v2/dist/livewire.min.js"></script>
+    @livewireScripts
 </body>
 </html>
