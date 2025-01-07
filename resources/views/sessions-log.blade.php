@@ -25,11 +25,10 @@
                 <div class="flex justify-between text-lg font-bold">
                     <p>{{ $session->instructor->name ?? 'N/A' }}</p>
                     <p>
-                        {{ \Carbon\Carbon::parse($session->time)->format('H:i') }} - 
+                        {{ \Carbon\Carbon::parse($session->time)->format('H:i') }} -
                         {{ \Carbon\Carbon::parse($session->time)->addHour()->format('H:i') }}
                     </p>
                 </div>
-
                 <!-- Date and Status -->
                 <div class="flex justify-between items-center text-sm font-bold mt-2">
                     <p class="text-gray-400">{{ \Carbon\Carbon::parse($session->date)->format('l, jS F') }}</p>

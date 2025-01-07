@@ -60,20 +60,41 @@
                     Total: LKR. {{ number_format($total, 2) }}
                 </p>
 
-                <!-- Sync Changes Button -->
-                <!-- <button wire:click="syncCartToDatabase" 
-                        class="bg-yeng-pink-500 text-white px-6 py-2 rounded font-bold mt-4 inline-block">
-                    Save Changes
-                </button> -->
+                <!-- Payment Options -->
+                <div class="mt-4">
+                    <label>
+                        <input type="radio" name="payment_method" value="cod" wire:model="paymentMethod" required>
+                        Cash on Delivery
+                    </label>
+                    <label class="ml-4">
+                        <input type="radio" name="payment_method" value="card" wire:model="paymentMethod" required>
+                        Card Payment
+                    </label>
+                </div>
 
-                <!-- Option 2: Direct Link -->
-                <form action="{{ route('store.checkout') }}" method="POST" class="inline">
-                    @csrf
-                    <button type="submit" class="bg-yeng-green-500 text-white rounded-full px-6 font-raleway font-bold h-10 mt-4 inline-block">
-                        Proceed to Checkout
-                    </button>
-                </form>
+                <!-- Proceed to Checkout -->
+                <button wire:click="proceedToCheckout" class="bg-yeng-green-500 text-white rounded-full px-6 font-raleway font-bold h-10 mt-4">
+                    Proceed to Checkout
+                </button>
             </div>
         @endif
     </div>
 </div>
+
+<script>
+    Livewire.on('redirectToStripe', () => {
+        window.location.href = "{{ route('store.stripe-payment') }}";
+    });
+</script>
+
+<script>
+    Livewire.on('redirectToOrders', (message) => {
+        alert(message); // You can display a success message
+        window.location.href = '{{ route('store.orders') }}';
+    });
+
+    Livewire.on('redirectToCart', (message) => {
+        alert(message); // You can display a failure message
+        window.location.href = '{{ route('store.cart') }}';
+    });
+</script>

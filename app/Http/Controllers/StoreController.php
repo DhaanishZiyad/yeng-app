@@ -8,6 +8,9 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Stripe\Stripe;
+use Stripe\Checkout\Session;
+use Livewire\Livewire;
 
 class StoreController extends Controller
 {
@@ -125,5 +128,83 @@ class StoreController extends Controller
 
             return redirect()->route('store.cart')->with('error', 'Failed to process your order. Please try again.');
         }
+    }
+
+    public function stripePayment()
+    {
+        $cartItems = Cart::with('product')->where('user_id', auth()->id())->get();
+        $lineItems = $cartItems->map(function ($item) {
+            return [
+                'price_data' => [
+                    'currency' => 'lkr',
+                    'product_data' => ['name' => $item->product->name],
+                    'unit_amount' => $item->price * 100,
+                ],
+                'quantity' => $item->quantity,
+            ];
+        })->toArray();
+
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        $checkoutSession = Session::create([
+            'payment_method_types' => ['card'],
+            'line_items' => $lineItems,
+            'mode' => 'payment',
+            'success_url' => route('store.stripe-success'),
+            'cancel_url' => route('store.cart'),
+        ]);
+
+        return redirect($checkoutSession->url);
+    }
+
+    public function stripeSuccess()
+    {
+        $userId = auth()->id();
+
+        DB::beginTransaction();
+
+        try {
+            $this->placeOrder($userId);
+            DB::commit();
+
+            return redirect()->route('store.orders')->with('success', 'Payment successful and order placed!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return redirect()->route('store.cart')->with('error', 'Failed to process your payment. Please try again.');
+        }
+    }
+
+
+    private function placeOrder($userId)
+    {
+        $cartItems = Cart::with('product')->where('user_id', $userId)->get();
+
+        if ($cartItems->isEmpty()) {
+            throw new \Exception('Cart is empty');
+        }
+
+        // Calculate total price
+        $total = $cartItems->sum(fn($item) => $item->quantity * $item->price);
+
+        // Create the order
+        $order = Order::create([
+            'user_id' => $userId,
+            'total' => $total,
+            'status' => 'completed',
+        ]);
+
+        // Create order items
+        foreach ($cartItems as $cartItem) {
+            OrderItem::create([
+                'order_id' => $order->id,
+                'product_id' => $cartItem->product_id,
+                'quantity' => $cartItem->quantity,
+                'price' => $cartItem->price,
+            ]);
+        }
+
+        // Clear the user's cart
+        Cart::where('user_id', $userId)->delete();
     }
 }
