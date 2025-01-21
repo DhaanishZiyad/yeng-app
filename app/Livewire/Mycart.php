@@ -7,6 +7,7 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 
 class MyCart extends Component
 {
@@ -160,6 +161,24 @@ class MyCart extends Component
             DB::rollBack();
             session()->flash('error', 'Failed to place the order. Please try again.');
         }
+    }
+
+    public function redirectToStripe()
+    {
+        $stripeUrl = URL::route('store.stripe-payment'); // Dynamically generate Stripe payment URL
+        $this->dispatchBrowserEvent('redirectTo', ['url' => $stripeUrl]);
+    }
+
+    public function redirectToOrders($message)
+    {
+        $ordersUrl = URL::route('store.orders'); // Dynamically generate Orders page URL
+        $this->dispatchBrowserEvent('redirectTo', ['url' => $ordersUrl, 'message' => $message]);
+    }
+
+    public function redirectToCart($message)
+    {
+        $cartUrl = URL::route('store.cart'); // Dynamically generate Cart page URL
+        $this->dispatchBrowserEvent('redirectTo', ['url' => $cartUrl, 'message' => $message]);
     }
 
 

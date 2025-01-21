@@ -81,7 +81,7 @@
     </div>
 </div>
 
-<script>
+<!-- <script>
     Livewire.on('redirectToStripe', () => {
         window.location.href = "{{ route('store.stripe-payment') }}";
     });
@@ -96,5 +96,14 @@
     Livewire.on('redirectToCart', (message) => {
         alert(message); // You can display a failure message
         window.location.href = '{{ route('store.cart') }}';
+    });
+</script> -->
+
+<script>
+    Livewire.on('redirectTo', (url, message = null) => {
+        if (message) {
+            alert(message); // Display the message if provided
+        }
+        window.location.href = url; // Redirect to the dynamic URL
     });
 </script>

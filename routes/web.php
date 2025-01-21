@@ -104,8 +104,9 @@ Route::prefix('store')->middleware(['auth', 'verified'])->group(function () {
 
     Route::post('stripe-payment', [StoreController::class, 'stripePayment'])->name('store.stripe-payment');
 
-    Route::post('stripe-success', [StoreController::class, 'stripeSuccess'])->name('store.stripe-success');
 });
+
+Route::get('stripe-success', [StoreController::class, 'stripeSuccess'])->name('store.stripe-success');
 
 
 // Admin Routes

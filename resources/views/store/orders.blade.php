@@ -24,7 +24,7 @@
                    class="block bg-white p-6 py-4 rounded-lg shadow-lg border-yeng-green-500 border-2 hover:shadow-md transition-shadow duration-200">
                     <!-- Order Number and Total -->
                     <div class="flex justify-between text-lg font-bold">
-                        <p>Order #{{ $order->id }}</p>
+                        <p>Order #00{{ $order->id }}</p>
                         <p>LKR. {{ number_format($order->total, 2) }}</p>
                     </div>
 

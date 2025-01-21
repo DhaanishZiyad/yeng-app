@@ -40,13 +40,13 @@
     </div>
 
     <!-- Bottom Nav -->
-    <div class="fixed bottom-0 left-0 right-0 bg-yeng-green-500 shadow-lg p-2 m-6 flex justify-between items-center border-t border-gray-200 z-50 rounded-full">
+    <div class="fixed bottom-0 left-0 right-0 bg-yeng-green-500 shadow-lg p-2 m-6 mx-16 flex justify-between items-center border-t border-gray-200 z-50 rounded-full">
         <a href="{{ route('store.homepage') }}" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('store.homepage') ? 'bg-yeng-green-300' : '' }}">
             <img src="/images/House.svg" alt="Home" class="h-8 w-8">
         </a>
-        <a href="{{ route('store.wishlist') }}" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('store.wishlist') ? 'bg-yeng-green-300' : '' }}">
+        <!-- <a href="{{ route('store.wishlist') }}" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('store.wishlist') ? 'bg-yeng-green-300' : '' }}">
             <img src="/images/heart.svg" alt="Booking" class="h-8 w-8">
-        </a>
+        </a> -->
         <a href="{{ route('store.cart') }}" class="nav-button transition duration-300 rounded-full h-16 w-16 flex justify-center items-center {{ request()->routeIs('store.cart') ? 'bg-yeng-green-300' : '' }}">
             <img src="/images/cart.svg" alt="Sessions" class="h-8 w-8">
         </a>
@@ -88,6 +88,7 @@
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/livewire-v2/dist/livewire.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     @livewireScripts
 </body>
 </html>

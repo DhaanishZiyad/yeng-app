@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
-
     <!-- Session Details Card -->
         <!-- Title -->
         <div class="mb-8 flex items-center">
