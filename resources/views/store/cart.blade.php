@@ -14,7 +14,7 @@
         </div>
     @endif
 
-    <!-- @livewire('my-cart') -->
+    @livewire('mycart')
 
     <script>
         // Automatically hide the success message after 5 seconds
