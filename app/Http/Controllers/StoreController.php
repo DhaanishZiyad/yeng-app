@@ -132,21 +132,34 @@ class StoreController extends Controller
 
     public function stripePayment()
     {
-        $cartItems = Cart::with('product')->where('user_id', auth()->id())->get();
+        $userId = auth()->id();
+
+        // Fetch cart items for the user
+        $cartItems = Cart::with('product')->where('user_id', $userId)->get();
+
+        if ($cartItems->isEmpty()) {
+            return redirect()->route('store.cart')->with('error', 'Your cart is empty!');
+        }
+
+        // Prepare Stripe line items
         $lineItems = $cartItems->map(function ($item) {
             return [
                 'price_data' => [
-                    'currency' => 'lkr',
-                    'product_data' => ['name' => $item->product->name],
-                    'unit_amount' => $item->price * 100,
+                    'currency' => 'lkr', // Adjust the currency as needed
+                    'product_data' => [
+                        'name' => $item->product->name,
+                    ],
+                    'unit_amount' => $item->price * 100, // Stripe requires amounts in cents
                 ],
                 'quantity' => $item->quantity,
             ];
         })->toArray();
 
-        Stripe::setApiKey(env('STRIPE_SECRET'));
+        // Initialize Stripe
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
-        $checkoutSession = Session::create([
+        // Create a Stripe Checkout session
+        $checkoutSession = \Stripe\Checkout\Session::create([
             'payment_method_types' => ['card'],
             'line_items' => $lineItems,
             'mode' => 'payment',
@@ -154,6 +167,7 @@ class StoreController extends Controller
             'cancel_url' => route('store.cart'),
         ]);
 
+        // Redirect to Stripe-hosted checkout page
         return redirect($checkoutSession->url);
     }
 
@@ -164,7 +178,9 @@ class StoreController extends Controller
         DB::beginTransaction();
 
         try {
+            // Call the placeOrder method to create the order
             $this->placeOrder($userId);
+
             DB::commit();
 
             return redirect()->route('store.orders')->with('success', 'Payment successful and order placed!');

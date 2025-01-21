@@ -102,18 +102,11 @@ class MyCart extends Component
             // Handle Cash on Delivery
             $this->checkoutCod();
         } elseif ($this->paymentMethod === 'card') {
-            // Emit an event to trigger a redirect in the frontend
-            $this->callStripePaymentController();
+            // Redirect to Stripe payment page
+            return redirect()->route('store.stripe-payment');
         } else {
             session()->flash('error', 'Please select a payment method.');
         }
-    }
-
-    public function callStripePaymentController()
-    {
-        // Trigger the controller method from here
-        $controller = new \App\Http\Controllers\StoreController();
-        return $controller->stripePayment();
     }
 
     private function checkoutCod()
