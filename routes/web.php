@@ -102,17 +102,17 @@ Route::prefix('store')->middleware(['auth', 'verified'])->group(function () {
 
     Route::post('checkout', [StoreController::class, 'checkout'])->name('store.checkout');
 
-});
-
-Route::prefix('store')->middleware(['auth'])->group(function () {
     Route::get('stripe-payment', [StoreController::class, 'stripePayment'])->name('store.stripe-payment');
 
     Route::get('stripe-success', [StoreController::class, 'stripeSuccess'])->name('store.stripe-success');
+
 });
 
-// Route::get('stripe-payment', [StoreController::class, 'stripePayment'])->name('store.stripe-payment');
+Route::prefix('store')->group(function () {
+    
+    
+});
 
-// Route::get('stripe-success', [StoreController::class, 'stripeSuccess'])->name('store.stripe-success');
 
 
 
