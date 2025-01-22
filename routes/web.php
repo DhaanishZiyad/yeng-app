@@ -101,11 +101,6 @@ Route::prefix('store')->middleware(['auth', 'verified'])->group(function () {
     Route::post('cart/{id}', [StoreController::class, 'addToCart'])->name('store.add-to-cart');
 
     Route::post('checkout', [StoreController::class, 'checkout'])->name('store.checkout');
-
-    // Route::get('stripe-payment', [StoreController::class, 'stripePayment'])->name('store.stripe-payment');
-
-    // Route::get('stripe-success', [StoreController::class, 'stripeSuccess'])->name('store.stripe-success');
-
 });
 
 Route::get('stripe-payment', [StoreController::class, 'stripePayment'])->name('store.stripe-payment');

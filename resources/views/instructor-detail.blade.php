@@ -67,6 +67,22 @@
             <div>
                 <p class="font-bold font-raleway">{{ \Carbon\Carbon::parse($instructor->dob)->format('F d, Y') }}</p>
             </div>
+
+            <!-- Instructor Availability Section -->
+            <div class="flex font-raleway font-bold mt-4">
+                <h1 class="text-gray-400">Available Days</h1>
+            </div>
+            @forelse($instructor->availabilities as $availability)
+                <div>
+                    <p class="font-bold font-raleway">
+                        {{ ucfirst($availability->day_of_week) }} 
+                        {{ \Carbon\Carbon::parse($availability->start_time)->format('H:i') }}-
+                        {{ \Carbon\Carbon::parse($availability->end_time)->format('H:i') }}
+                    </p>
+                </div>
+            @empty
+                <p class="text-gray-500 mt-2">This instructor has not set any availability yet.</p>
+            @endforelse
         </div>
     </div>
 </div>

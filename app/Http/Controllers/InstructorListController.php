@@ -17,12 +17,21 @@ class InstructorListController extends Controller
         return view('instructor-list', compact('instructors'));
     }
 
+    // public function show($id)
+    // {
+    //     // Fetch the instructor details by ID
+    //     $instructor = Instructor::findOrFail($id);
+
+    //     // Pass the instructor details to the view
+    //     return view('instructor-detail', compact('instructor'));
+    // }
+
     public function show($id)
     {
-        // Fetch the instructor details by ID
-        $instructor = Instructor::findOrFail($id);
+        // Fetch the instructor details with their availability
+        $instructor = Instructor::with('availabilities')->findOrFail($id);
 
-        // Pass the instructor details to the view
+        // Pass the instructor and their availabilities to the view
         return view('instructor-detail', compact('instructor'));
     }
 }
