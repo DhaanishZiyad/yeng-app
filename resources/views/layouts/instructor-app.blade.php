@@ -20,15 +20,10 @@
     <nav class="flex justify-center items-center bg-white p-4 shadow-lg font-raleway font-bold fixed top-0 w-full z-50">
         <div class="flex space-x-8">
             <!-- Sessions Toggle Button -->
-            <button id="sessions-btn" onclick="toggleTopNav('sessions')" class="sessions-toggle text-gray-500 px-6 py-2 hover:text-black transition duration-300">
-                Sessions
-                <span id="sessions-underline" class="block h-1 transition-all rounded"></span>
-            </button>
-            <!-- Store Toggle Button -->
-            <button id="store-btn" onclick="toggleTopNav('store')" class="store-toggle text-gray-500 px-6 py-2 hover:text-black transition duration-300">
-                Store
-                <span id="store-underline" class="block h-1 transition-all rounded"></span>
-            </button>
+            <a href="{{ route('instructor.dashboard') }}" id="sessions-btn" class="sessions-toggle text-gray-500 px-6 py-2 hover:text-black transition duration-300">
+                Instructor Dashboard
+                <span id="sessions-underline" class="bg-yeng-pink-500 block h-1 transition-all rounded"></span>
+            </a>
         </div>
     </nav>
 
@@ -63,25 +58,25 @@
 
     <script>
         // Top Nav toggle
-        function toggleTopNav(selected) {
-            const sessionsBtn = document.getElementById('sessions-btn');
-            const storeBtn = document.getElementById('store-btn');
-            const sessionsUnderline = document.getElementById('sessions-underline');
-            const storeUnderline = document.getElementById('store-underline');
+        // function toggleTopNav(selected) {
+        //     const sessionsBtn = document.getElementById('sessions-btn');
+        //     const storeBtn = document.getElementById('store-btn');
+        //     const sessionsUnderline = document.getElementById('sessions-underline');
+        //     const storeUnderline = document.getElementById('store-underline');
 
-            // Reset underline styles and remove 'bg-black' from both buttons
-            sessionsUnderline.classList.remove('bg-yeng-pink-500');
-            storeUnderline.classList.remove('bg-yeng-pink-500');
+        //     // Reset underline styles and remove 'bg-black' from both buttons
+        //     sessionsUnderline.classList.remove('bg-yeng-pink-500');
+        //     storeUnderline.classList.remove('bg-yeng-pink-500');
 
-            // Show the content and apply pink underline to the selected button
-            if (selected === 'sessions') {
-                sessionsUnderline.classList.add('bg-yeng-pink-500');
-            } else {
-                storeUnderline.classList.add('bg-yeng-pink-500');
-            }
-        }
-        // Initialize with 'sessions' selected
-        toggleTopNav('sessions');
+        //     // Show the content and apply pink underline to the selected button
+        //     if (selected === 'sessions') {
+        //         sessionsUnderline.classList.add('bg-yeng-pink-500');
+        //     } else {
+        //         storeUnderline.classList.add('bg-yeng-pink-500');
+        //     }
+        // }
+        // // Initialize with 'sessions' selected
+        // toggleTopNav('sessions');
 
         // Bottom Nav toggle
         function highlightButton(button) {

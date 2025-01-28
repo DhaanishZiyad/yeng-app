@@ -35,7 +35,7 @@
 
         <div class="flex font-bold font-raleway mt-4 justify-center">
             <button 
-                class="text-white border-yeng-pink-500 bg-yeng-pink-500 border-2 p-8 py-2 rounded-full w-full max-w-screen-sm"
+                class="text-white border-yeng-pink-500 bg-yeng-pink-500 border-2 p-6 py-2 rounded-full max-w-screen-sm"
                 onclick="window.location.href='{{ route('booking', ['instructor_name' => $instructor->name, 'instructor_id' => $instructor->id]) }}'">
                 Book a Session
             </button>
